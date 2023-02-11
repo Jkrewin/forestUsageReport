@@ -1,0 +1,30 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="DateTimePicker1Value" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">12/04/2022 13:39:40</Value>
+    </Setting>
+    <Setting Name="DateTimePicker2Value" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">12/04/2022 13:39:40</Value>
+    </Setting>
+    <Setting Name="DateTimePicker3Value" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">12/04/2022 13:39:40</Value>
+    </Setting>
+    <Setting Name="DateTimePicker4Value" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">12/04/2022 13:39:40</Value>
+    </Setting>
+    <Setting Name="tv" Type="System.Windows.Forms.FormWindowState" Scope="User">
+      <Value Profile="(Default)">Normal</Value>
+    </Setting>
+    <Setting Name="PrintFile" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ПодписаниеВкл" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Совместимость" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
