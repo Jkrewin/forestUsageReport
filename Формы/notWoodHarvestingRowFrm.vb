@@ -12,26 +12,26 @@
     Private Sub notWoodHarvestingRowFrm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         forestry.DisplayMember = "name"
-        forestry.DataSource = (From tv In MyCatalor.forestry Where tv.subject.id = CType(Form1.ComboBox2.SelectedValue, DeliverCl).id Select New DeliverCl With {.id = tv.id, .name = tv.name}).ToList.Cast(Of DeliverCl)
+        forestry.DataSource = (From tv In MyCatalor.forestry Where tv.subject.id = CType(Form1.ComboBox2.SelectedValue, DeliverCl).Id Select New DeliverCl With {.Id = tv.id, .Name = tv.name}).ToList.Cast(Of DeliverCl)
 
         subforestry.DisplayMember = "name"
-        subforestry.DataSource = (From tv In MyCatalor.subforestry Where tv.subject.id = CType(Form1.ComboBox2.SelectedValue, DeliverCl).id Select New DeliverCl With {.id = tv.id, .name = tv.name}).ToList.Cast(Of DeliverCl)
+        subforestry.DataSource = (From tv In MyCatalor.subforestry Where tv.subject.id = CType(Form1.ComboBox2.SelectedValue, DeliverCl).Id Select New DeliverCl With {.Id = tv.id, .Name = tv.name}).ToList.Cast(Of DeliverCl)
 
         tract.DisplayMember = "name"
-        Dim ar As List(Of DeliverCl) = (From tv In MyCatalor.tract Where tv.subject.id = CType(Form1.ComboBox2.SelectedValue, DeliverCl).id Select New DeliverCl With {.id = tv.id, .name = tv.name}).ToList.Cast(Of DeliverCl)
+        Dim ar As List(Of DeliverCl) = (From tv In MyCatalor.tract Where tv.subject.id = CType(Form1.ComboBox2.SelectedValue, DeliverCl).Id Select New DeliverCl With {.Id = tv.id, .Name = tv.name}).ToList.Cast(Of DeliverCl)
         ar.Insert(0, New DeliverCl)
         tract.DataSource = ar
 
         resourceType.DisplayMember = "name"
-        Dim ar2 As List(Of DeliverCl) = (From tv In MyCatalor.resource Select New DeliverCl With {.id = tv.id, .name = tv.name, .description = ""}).ToList.Cast(Of DeliverCl)
+        Dim ar2 As List(Of DeliverCl) = (From tv In MyCatalor.resource Select New DeliverCl With {.Id = tv.id, .Name = tv.name, .Description = ""}).ToList.Cast(Of DeliverCl)
         ar2.Insert(0, New DeliverCl)
         resourceType.DataSource = ar2
 
         unitType.DisplayMember = "name"
-        unitType.DataSource = (From tv In MyCatalor.unitType Select New DeliverCl With {.id = tv.id, .name = tv.name}).ToList.Cast(Of DeliverCl)
+        unitType.DataSource = (From tv In MyCatalor.unitType Select New DeliverCl With {.Id = tv.id, .Name = tv.name}).ToList.Cast(Of DeliverCl)
 
         usageType.DisplayMember = "name"
-        usageType.DataSource = (From tv In MyCatalor.usageType Select New DeliverCl With {.id = tv.id, .name = tv.name}).ToList.Cast(Of DeliverCl)
+        usageType.DataSource = (From tv In MyCatalor.usageType Select New DeliverCl With {.Id = tv.id, .Name = tv.name}).ToList.Cast(Of DeliverCl)
 
     End Sub
 

@@ -299,10 +299,22 @@ Public Class companyFrm
 
     Private Sub TextBox9_LostFocus(sender As Object, e As EventArgs) Handles TextBox9.LostFocus
         ЦелоеЧисло(sender)
+        If checkOGRN(TextBox9.Text) = False Then
+            TextBox9.ForeColor = Color.Red
+            MsgBox("Неверный ОГРН проверте!", MsgBoxStyle.Information, "Ошибка")
+        Else
+            TextBox9.ForeColor = Color.Black
+        End If
     End Sub
 
     Private Sub TextBox8_LostFocus(sender As Object, e As EventArgs) Handles TextBox8.LostFocus
         ЦелоеЧисло(sender)
+        If checkOGRN(TextBox8.Text) = False Then
+            TextBox8.ForeColor = Color.Red
+            MsgBox("Неверный ИНН проверте!", MsgBoxStyle.Information, "Ошибка")
+        Else
+            TextBox8.ForeColor = Color.Black
+        End If
     End Sub
 
     Private Sub TextBox6_TextChanged(sender As Object, e As EventArgs) Handles TextBox6.LostFocus
@@ -315,10 +327,22 @@ Public Class companyFrm
 
     Private Sub TextBox12_TextChanged(sender As Object, e As EventArgs) Handles TextBox12.LostFocus
         ЦелоеЧисло(sender)
+        If checkOGRN(TextBox12.Text) = False Then
+            TextBox12.ForeColor = Color.Red
+            MsgBox("Неверный ОГРН проверте!", MsgBoxStyle.Information, "Ошибка")
+        Else
+            TextBox12.ForeColor = Color.Black
+        End If
     End Sub
 
     Private Sub TextBox11_TextChanged(sender As Object, e As EventArgs) Handles TextBox11.LostFocus
         ЦелоеЧисло(sender)
+        If checkOGRN(TextBox11.Text) = False Then
+            TextBox11.ForeColor = Color.Red
+            MsgBox("Неверный ИНН проверте!", MsgBoxStyle.Information, "Ошибка")
+        Else
+            TextBox11.ForeColor = Color.Black
+        End If
     End Sub
 
     Private Sub TextBox16_TextChanged(sender As Object, e As EventArgs) Handles TextBox16.LostFocus
@@ -332,4 +356,6 @@ Public Class companyFrm
     Private Sub TextBox20_TextChanged(sender As Object, e As EventArgs) Handles TextBox20.LostFocus
         ЦелоеЧисло(sender)
     End Sub
+
+
 End Class

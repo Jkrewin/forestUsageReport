@@ -26,21 +26,22 @@ Public Class Form1
         End Try
 
         If IO.File.Exists(MyCurDir & "\DataBase.xml") = True Then
+            Dim r As New IO.StreamReader(MyCurDir & "\DataBase.xml")
             Try
                 Dim s As New XmlSerializer(GetType(DataBase))
-                Dim r As New IO.StreamReader(MyCurDir & "\DataBase.xml")
                 myDataBase = s.Deserialize(r)
-                r.Close()
-                r.Dispose()
             Catch ex As Exception
                 LogError(ex.Message)
+            Finally
+                Dim dis As IDisposable = r
+                dis.Dispose()
             End Try
         End If
         Me.WindowState = myDataBase.WinState
 
         ComboBox2.DisplayMember = "name"
-        Dim var As List(Of DeliverCl) = (From tv In MyCatalor.subject Select New DeliverCl With {.id = tv.id, .name = tv.name}).ToList.Cast(Of DeliverCl)
-        var.Insert(0, New DeliverCl With {.id = 0, .name = " <Сначало выбирете регион> "})
+        Dim var As List(Of DeliverCl) = (From tv In MyCatalor.subject Select New DeliverCl With {.Id = tv.id, .Name = tv.name}).ToList.Cast(Of DeliverCl)
+        var.Insert(0, New DeliverCl With {.Id = 0, .Name = " <Сначало выбирете регион> "})
         ComboBox2.DataSource = var
 
         ComboBox1.DisplayMember = "name"
@@ -48,64 +49,64 @@ Public Class Form1
         ' подготовка таблиц
         Dim i As Integer = -1
         With DataGridView1
-            i = i + 1
+            i += 1
             .Columns.Add("A1", "Наименование лесничества")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 100
-            i = i + 1
+            i += 1
             .Columns.Add("A2", "Участковое лесничество")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 100
-            i = i + 1
+            i += 1
             .Columns.Add("A3", "Урочища")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 60
-            i = i + 1
+            i += 1
             .Columns.Add("A5", "Кв")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 40
-            i = i + 1
+            i += 1
             .Columns.Add("A6", "Выд.")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 40
-            i = i + 1
+            i += 1
             .Columns.Add("A7", "Л.Выд.")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 50
-            i = i + 1
+            i += 1
             .Columns.Add("A8", "Га.Выд.")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 60
-            i = i + 1
+            i += 1
             .Columns.Add("A9", "Га.рубка")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 60
-            i = i + 1
+            i += 1
             .Columns.Add("A10", "Хозяйство")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 120
-            i = i + 1
+            i += 1
             .Columns.Add("A11", "Форма рубки")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 120
-            i = i + 1
+            i += 1
             .Columns.Add("A12", "Вид рубки")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 120
-            i = i + 1
+            i += 1
             .Columns.Add("A13", "породный")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 130
-            i = i + 1
+            i += 1
             .Columns.Add("A14", "сортиментный")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 140
-            i = i + 1
+            i += 1
             .Columns.Add("A15", "Объем")
             .Columns(i).ReadOnly = False
             .Columns(i).DefaultCellStyle.BackColor = Color.LightYellow
             .Columns(i).Width = 60
-            i = i + 1
+            i += 1
             .Columns.Add("A16", "Заметки")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 80
@@ -116,39 +117,39 @@ Public Class Form1
             .Columns.Add("A1", "Вид использования лесов")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 100
-            i = i + 1
+            i += 1
             .Columns.Add("A2", "Наименование лесничества")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 100
-            i = i + 1
+            i += 1
             .Columns.Add("A3", "Участковое лесничество")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 100
-            i = i + 1
+            i += 1
             .Columns.Add("A4", "Урочища")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 60
-            i = i + 1
+            i += 1
             .Columns.Add("A5", "Кв")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 40
-            i = i + 1
+            i += 1
             .Columns.Add("A6", "Выд.")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 40
-            i = i + 1
+            i += 1
             .Columns.Add("A7", "Площадь га")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 50
-            i = i + 1
+            i += 1
             .Columns.Add("A8", "Вид ресурсов")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 150
-            i = i + 1
+            i += 1
             .Columns.Add("A9", "Ед. измер")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 60
-            i = i + 1
+            i += 1
             .Columns.Add("A10", "Объем")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 80
@@ -159,63 +160,63 @@ Public Class Form1
             .Columns.Add("A1", "Наименование мероприятия")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 150
-            i = i + 1
+            i += 1
             .Columns.Add("A2", "Вид объекта")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 150
-            i = i + 1
+            i += 1
             .Columns.Add("A3", "Наименование лесничества")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 100
-            i = i + 1
+            i += 1
             .Columns.Add("A4", "Наименование участкового лесничества")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 100
-            i = i + 1
+            i += 1
             .Columns.Add("A5", "Наименование урочища ")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 100
-            i = i + 1
+            i += 1
             .Columns.Add("A6", "Кв")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 50
-            i = i + 1
+            i += 1
             .Columns.Add("A7", "Выдел")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 50
-            i = i + 1
+            i += 1
             .Columns.Add("A8", "Номер")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 50
-            i = i + 1
+            i += 1
             .Columns.Add("A9", "Площадь га")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 60
-            i = i + 1
+            i += 1
             .Columns.Add("A10", "Хозяйство")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 120
-            i = i + 1
+            i += 1
             .Columns.Add("A11", "Форма рубки")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 120
-            i = i + 1
+            i += 1
             .Columns.Add("A12", "вид рубки")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 120
-            i = i + 1
+            i += 1
             .Columns.Add("A13", "видовой")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 120
-            i = i + 1
+            i += 1
             .Columns.Add("A14", "сортиментный")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 120
-            i = i + 1
+            i += 1
             .Columns.Add("A15", "всего")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 50
-            i = i + 1
+            i += 1
             .Columns.Add("A15", "деловой")
             .Columns(i).ReadOnly = True
             .Columns(i).Width = 50
@@ -238,9 +239,9 @@ Public Class Form1
         DataGridView1.Rows.Clear()
         For Each tv In myDoc.woodHarvesting
             DataGridView1.Rows.Add(tv.ToRow())
-            aa = aa + tv.areaSquare
-            ss = ss + tv.areaCutting
-            dd = dd + tv.value
+            aa += tv.areaSquare
+            ss += tv.areaCutting
+            dd += tv.value
         Next
 
         LabelSum.Text = $"Общая площадь лесосеки: {aa} Общая га рубки: {ss}  Общая объем м/куб:{dd}"
@@ -381,7 +382,7 @@ Public Class Form1
         If myDoc.woodHarvesting.Count = 0 Then
             xml = xml & "	<woodHarvesting/>" & REAL_CH
         Else
-            xml = xml & "	<woodHarvesting>"
+            xml &= "	<woodHarvesting>"
             For Each tv In myDoc.woodHarvesting
                 xml = xml & REAL_CH & tv.toXml()
             Next
@@ -391,7 +392,7 @@ Public Class Form1
         If myDoc.notWoodHarvesting.Count = 0 Then
             xml = xml & "	<notWoodHarvesting/>" & REAL_CH
         Else
-            xml = xml & "	<notWoodHarvesting>"
+            xml &= "	<notWoodHarvesting>"
             For Each tv In myDoc.notWoodHarvesting
                 xml = xml & REAL_CH & tv.toXml()
             Next
@@ -401,7 +402,7 @@ Public Class Form1
         If myDoc.measure.Count = 0 Then
             xml = xml & "	<measure/>" & REAL_CH
         Else
-            xml = xml & "	<measure>"
+            xml &= "	<measure>"
             For Each tv In myDoc.measure
                 xml = xml & REAL_CH & tv.toXml()
             Next
@@ -444,8 +445,7 @@ Public Class Form1
         If CheckBox2.Checked = True Then IO.File.WriteAllText(Mid(sfile, 1, sfile.Length - 4) & ".html", GeneratorReport, System.Text.Encoding.Default)
 
 
-        Dim FiletoSing As New List(Of String) 'на подписание файлы
-        FiletoSing.Add(sfile)
+        Dim FiletoSing As New List(Of String) From {sfile} 'на подписание файлы
 
         'сохранение дополнительных файлов
         If myDoc.attachments.Count <> 0 Then
@@ -527,7 +527,7 @@ Public Class Form1
     Sub CheclCB(a As ComboBox, s As DeliverCl)
 
         Dim aa As List(Of DeliverCl) = a.DataSource
-        Dim i As Integer = aa.FindIndex(Function(x) x.id.Trim = s.id.Trim)
+        Dim i As Integer = aa.FindIndex(Function(x) x.Id.Trim = s.Id.Trim)
         a.SelectedIndex = i
         If i = -1 Then MsgBox("Не соотвествие каталогов. Значение [" & s.ToStr & "] не найдено!", MsgBoxStyle.Exclamation, "")
 
@@ -630,18 +630,16 @@ Public Class Form1
     End Sub
 
     Private Sub ComboBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox2.SelectedIndexChanged
-        If CType(ComboBox2.SelectedValue, DeliverCl).id = "0" Then Exit Sub
+        If CType(ComboBox2.SelectedValue, DeliverCl).Id = "0" Then Exit Sub
         ComboBox1.Enabled = True
-        ComboBox1.DataSource = (From tv In MyCatalor.executiveAuthority Where tv.subject.id = CType(ComboBox2.SelectedValue, DeliverCl).id Select New DeliverCl With {.id = tv.id, .name = tv.name}).ToList.Cast(Of DeliverCl)
+        ComboBox1.DataSource = (From tv In MyCatalor.executiveAuthority Where tv.subject.id = CType(ComboBox2.SelectedValue, DeliverCl).Id Select New DeliverCl With {.Id = tv.id, .Name = tv.name}).ToList.Cast(Of DeliverCl)
 
     End Sub
 
     Private Function GeneratorReport() As String
         Dim deep As String = IO.File.ReadAllText(MyCurDirLib & "Fprint.htm", System.Text.Encoding.Default)
-        Dim dic As New Dictionary(Of String, String)
-        dic.Add("!A1", myDoc.header.executiveAuthority.name)
+        Dim dic As New Dictionary(Of String, String) From {{"!A1", myDoc.header.executiveAuthority.name}, {"!B11", myDoc.header.partner.phone}}
 
-        dic.Add("!B11", myDoc.header.partner.phone)
         If myDoc.header.partner.individualEntrepreneur IsNot Nothing Then
             dic.Add("!B2", myDoc.header.partner.individualEntrepreneur.last_name)
             dic.Add("!B3", myDoc.header.partner.individualEntrepreneur.first_name)
@@ -652,11 +650,29 @@ Public Class Form1
             dic.Add("!B8", myDoc.header.partner.individualEntrepreneur.ogrn)
             dic.Add("!B9", myDoc.header.partner.individualEntrepreneur.inn)
             dic.Add("!B10", "") 'для юр лиц
-            dic.Add("!B1", "") 'для юр лиц
+            dic.Add("!B1", "ИП")
         ElseIf myDoc.header.partner.juridicalPerson IsNot Nothing Then
-
+            dic.Add("!B2", "")
+            dic.Add("!B3", "")
+            dic.Add("!B4", "")
+            dic.Add("!B5", "")
+            dic.Add("!B6", "")
+            dic.Add("!B7", "")
+            dic.Add("!B8", myDoc.header.partner.juridicalPerson.ogrn)
+            dic.Add("!B9", myDoc.header.partner.juridicalPerson.inn)
+            dic.Add("!B10", myDoc.header.partner.juridicalPerson.address)
+            dic.Add("!B1", myDoc.header.partner.juridicalPerson.name) 'для юр лиц
         ElseIf myDoc.header.partner.physicalPerson IsNot Nothing Then
-
+            dic.Add("!B2", myDoc.header.partner.physicalPerson.last_name)
+            dic.Add("!B3", myDoc.header.partner.physicalPerson.first_name)
+            dic.Add("!B4", myDoc.header.partner.physicalPerson.patronimic_name)
+            dic.Add("!B5", myDoc.header.partner.physicalPerson.identity_document.name)
+            dic.Add("!B6", myDoc.header.partner.physicalPerson.identity_document.series)
+            dic.Add("!B7", myDoc.header.partner.physicalPerson.identity_document.number)
+            dic.Add("!B8", "")
+            dic.Add("!B9", myDoc.header.partner.physicalPerson.inn)
+            dic.Add("!B10", "") 'для юр лиц
+            dic.Add("!B1", "")
         End If
 
         dic.Add("!C1", myDoc.header.contract.type)
@@ -671,10 +687,10 @@ Public Class Form1
             tr01 &= tv.toHtml()
         Next
         dic.Add("$tr01$", tr01)
-        dic.Add("sumD7hl", myDoc.woodHarvesting.Sum(Function(x) x.areaCutting))
-        dic.Add("sumD7", myDoc.woodHarvesting.Sum(Function(x) x.areaCutting))
-        dic.Add("sumD8hl", myDoc.woodHarvesting.Sum(Function(x) x.areaSquare))
-        dic.Add("sumD8", myDoc.woodHarvesting.Sum(Function(x) x.areaSquare))
+        dic.Add("sumD7hl", myDoc.woodHarvesting.Sum(Function(x) x.areaSquare)) 'areaSquare
+        dic.Add("sumD7", myDoc.woodHarvesting.Sum(Function(x) x.areaSquare))
+        dic.Add("sumD8hl", myDoc.woodHarvesting.Sum(Function(x) x.areaCutting)) 'areaCutting
+        dic.Add("sumD8", myDoc.woodHarvesting.Sum(Function(x) x.areaCutting))
         dic.Add("sumD14hl", myDoc.woodHarvesting.Sum(Function(x) x.value))
         dic.Add("sumD14", myDoc.woodHarvesting.Sum(Function(x) x.value))
 
@@ -1119,7 +1135,7 @@ Public Class Form1
             Dim deep As String = IO.File.ReadAllText(MyCurDirLib & "sampler.htm", System.Text.Encoding.Default)
             deep = Replace(deep, "[2]", "<a href='file:///" & MyCurDir & "/Upload/" & "'>[Сюда скопировать]</a>")
             deep = Replace(deep, "[3]", "<b>Отсутствуют нужные схемы в каталоге " & GetShemaforestUsageReport() & "</b>")
-            IO.File.WriteAllText(MyCurDir & "\tmp.html", deep, System.Text.Encoding.Default)
+            IO.File.WriteAllText(Environ("TMP") & "\tmp.html", deep, System.Text.Encoding.Default)
             GoTo Err
         End If
 
@@ -1127,16 +1143,16 @@ Public Class Form1
         Try
             schemas.Add(VERXSD, f)
         Catch ex As Exception
-            IO.File.WriteAllText(MyCurDir & "\tmp.html", "<html><body><pre><red>" & ex.Message, System.Text.Encoding.Default)
+            IO.File.WriteAllText(Environ("TMP") & "\tmp.html", "<html><body><pre><red>" & ex.Message, System.Text.Encoding.Default)
             GoTo Err
         End Try
         ErrorHub = ""
         XDocument.Load(OpenFileXmlDialog.FileName).Validate(schemas, AddressOf XSDErrors)
         If ErrorHub = "" Then MsgBox("Ошибок не обнаружено.", MsgBoxStyle.Information, "Проверка на ошибки завершена") : Exit Sub
-        IO.File.WriteAllText(MyCurDir & "\tmp.html", "<h1>Обнаружено несоответствие схеме</h1>" & ErrorHub, System.Text.Encoding.Default)
+        IO.File.WriteAllText(Environ("TMP") & "\tmp.html", "<h1>Обнаружено несоответствие схеме</h1>" & ErrorHub, System.Text.Encoding.Default)
 
 Err:
-        Process.Start("file:///" & MyCurDir & "\tmp.html")
+        Process.Start("file:///" & Environ("TMP") & "\tmp.html")
 
     End Sub
 
@@ -1156,27 +1172,27 @@ End Class
 
 
 Public Class DeliverCl
-    Public Property id As String = ""
-    Public Property name As String = ""
-    Public Property description As String = ""
+    Public Property Id As String = ""
+    Public Property Name As String = ""
+    Public Property Description As String = ""
 
     Public Function ToStr() As String
-        Return " id=""" & id & """ name=""" & name & """ description=""" & description & """/>"
+        Return " id=""" & Id & """ name=""" & Name & """ description=""" & Description & """/>"
     End Function
 
     Public Shared Widening Operator CType(ByVal val As DeliverCl) As forestUsageReport.reference
-        Return New forestUsageReport.reference With {.id = val.id, .description = val.description, .name = val.name}
+        Return New forestUsageReport.reference With {.id = val.Id, .description = val.Description, .name = val.Name}
     End Operator
 
     Public Shared Operator =(a As DeliverCl, s As DeliverCl)
-        If a.id = s.id And a.name = s.name And a.description = s.description Then
+        If a.Id = s.Id And a.Name = s.Name And a.Description = s.Description Then
             Return True
         Else
             Return False
         End If
     End Operator
     Public Shared Operator <>(a As DeliverCl, s As DeliverCl)
-        If a.id = s.id And a.name = s.name And a.description = s.description Then
+        If a.Id = s.Id And a.Name = s.Name And a.Description = s.Description Then
             Return True
         Else
             Return False

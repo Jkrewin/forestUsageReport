@@ -35,15 +35,15 @@
 
     Private Sub woodHarvestFrm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         typeCutting.DisplayMember = "name"
-        typeCutting.DataSource = (From tv In MyCatalor.typeCutting Select New DeliverCl With {.id = tv.id, .name = tv.name}).ToList.Cast(Of DeliverCl)
+        typeCutting.DataSource = (From tv In MyCatalor.typeCutting Select New DeliverCl With {.Id = tv.id, .Name = tv.name}).ToList.Cast(Of DeliverCl)
         wood.DisplayMember = "description"
-        wood.DataSource = (From tv In MyCatalor.wood Select New DeliverCl With {.id = tv.id, .name = tv.name, .description = tv.okpd & " " & tv.name}).ToList.Cast(Of DeliverCl)
+        wood.DataSource = (From tv In MyCatalor.wood Select New DeliverCl With {.Id = tv.id, .Name = tv.name, .Description = tv.okpd & " " & tv.name}).ToList.Cast(Of DeliverCl)
 
         forestry.DisplayMember = "name"
-        forestry.DataSource = (From tv In MyCatalor.forestry Where tv.subject.id = CType(Form1.ComboBox2.SelectedValue, DeliverCl).id Select New DeliverCl With {.id = tv.id, .name = tv.name}).ToList.Cast(Of DeliverCl)
+        forestry.DataSource = (From tv In MyCatalor.forestry Where tv.subject.id = CType(Form1.ComboBox2.SelectedValue, DeliverCl).Id Select New DeliverCl With {.Id = tv.id, .Name = tv.name}).ToList.Cast(Of DeliverCl)
 
         subforestry.DisplayMember = "name"
-        subforestry.DataSource = (From tv In MyCatalor.subforestry Where tv.subject.id = CType(Form1.ComboBox2.SelectedValue, DeliverCl).id Select New DeliverCl With {.id = tv.id, .name = tv.name}).ToList.Cast(Of DeliverCl)
+        subforestry.DataSource = (From tv In MyCatalor.subforestry Where tv.subject.id = CType(Form1.ComboBox2.SelectedValue, DeliverCl).Id Select New DeliverCl With {.Id = tv.id, .Name = tv.name}).ToList.Cast(Of DeliverCl)
 
         sortiment.DisplayMember = "name"
         '    Dim arr As List(Of DeliverCl) = (From tv In MyCatalor.wood Where Not tv.tnved = "" Select New DeliverCl With {.id = tv.id, .name = tv.okpd & " " & tv.name}).ToArray.Cast(Of DeliverCl)
@@ -51,12 +51,50 @@
         ' sortiment.DataSource = arr
 
         tract.DisplayMember = "name"
-        Dim ar As List(Of DeliverCl) = (From tv In MyCatalor.tract Where tv.subject.id = CType(Form1.ComboBox2.SelectedValue, DeliverCl).id Select New DeliverCl With {.id = tv.id, .name = tv.name}).ToList.Cast(Of DeliverCl)
+        Dim ar As List(Of DeliverCl) = (From tv In MyCatalor.tract Where tv.subject.id = CType(Form1.ComboBox2.SelectedValue, DeliverCl).Id Select New DeliverCl With {.Id = tv.id, .Name = tv.name}).ToList.Cast(Of DeliverCl)
         ar.Insert(0, New DeliverCl)
         tract.DataSource = ar
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Dim k As Boolean = False
+        Dim mTBox(2) As TextBox
+        mTBox(0) = quarter
+        mTBox(1) = taxationUnit
+        mTBox(2) = cuttingArea
+        For i = 0 To mTBox.Length - 1
+            If mTBox(i).Text = "" Or mTBox(i).Text = "0" Then
+                mTBox(i).BackColor = Color.LightSalmon
+                k = True
+            Else
+                mTBox(i).BackColor = Color.WhiteSmoke
+            End If
+        Next
+        Dim mNum(1) As NumericUpDown
+        mNum(0) = areaSquare
+        mNum(1) = areaCutting
+        For i = 0 To mNum.Length - 1
+            If CInt(mNum(i).Value) = 0 Then
+                mNum(i).BackColor = Color.LightSalmon
+                k = True
+            Else
+                mNum(i).BackColor = Color.WhiteSmoke
+            End If
+        Next
+        Dim mCBox(2) As ComboBox
+        mCBox(0) = farm
+        mCBox(1) = formCutting
+        mCBox(2) = wood
+        For i = 0 To mCBox.Length - 1
+            If mCBox(i).Text = "" Then
+                mCBox(i).SelectedIndex = 0
+            End If
+        Next
+        If k = True Then
+            MsgBox("Проверте. Обязательные поля не заполнены.", MsgBoxStyle.Information, "")
+            Exit Sub
+        End If
+
         Dim a As New forestUsageReport.woodHarvestingRow
         AutoFull(a)
         myDoc.woodHarvesting.Add(a)

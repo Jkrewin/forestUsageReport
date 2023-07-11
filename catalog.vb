@@ -6,7 +6,7 @@
 ''' использует только нужные элементы
 ''' есть проблемы с ID оно строковый тип и там могут быть пробелы см. TRIM_REFERENCE
 ''' </summary>
-<XmlRoot([Namespace]:="http://rosleshoz.gov.ru/xmlns/catalogs/3.1", IsNullable:=False)>
+<XmlRoot([Namespace]:=VERCAT, IsNullable:=False)>
 Public Structure catalog
     Public subject As List(Of mainClass.element)
 
@@ -16,7 +16,7 @@ Public Structure catalog
             Public id As String
             <XmlAttribute("name")>
             Public name As String
-            <XmlElement([Namespace]:="http://rosleshoz.gov.ru/xmlns/catalogsTypes/3.1")>
+            <XmlElement([Namespace]:=VERCATTYPE)>
             Public subject As subjectStructure
             Public Structure subjectStructure
                 <XmlAttribute("id")>
@@ -24,7 +24,7 @@ Public Structure catalog
                 <XmlAttribute("name")>
                 Public name As String
             End Structure
-            <XmlElement([Namespace]:="http://rosleshoz.gov.ru/xmlns/catalogsTypes/3.1")>
+            <XmlElement([Namespace]:=VERCATTYPE)>
             Public landType As landTypeStructure
             Public Structure landTypeStructure
                 <XmlAttribute("id")>
@@ -32,13 +32,13 @@ Public Structure catalog
                 <XmlAttribute("name")>
                 Public name As String
             End Structure
-            <XmlElement([Namespace]:="http://rosleshoz.gov.ru/xmlns/catalogsTypes/3.1")>
+            <XmlElement([Namespace]:=VERCATTYPE)>
             Public okpd As String
-            <XmlElement([Namespace]:="http://rosleshoz.gov.ru/xmlns/catalogsTypes/3.1")>
+            <XmlElement([Namespace]:=VERCATTYPE)>
             Public tnved As String
-            <XmlElement([Namespace]:="http://rosleshoz.gov.ru/xmlns/catalogsTypes/3.1")>
+            <XmlElement([Namespace]:=VERCATTYPE)>
             Public abbreviation As String
-            <XmlElement([Namespace]:="http://rosleshoz.gov.ru/xmlns/catalogsTypes/3.1")>
+            <XmlElement([Namespace]:=VERCATTYPE)>
             Public typeObject As String
         End Structure
 

@@ -47,7 +47,7 @@ Public Class forestUsageReport
         End Function
 
         Public Function ToDeliverCl() As DeliverCl
-            Return New DeliverCl With {.id = id, .description = description, .name = name}
+            Return New DeliverCl With {.Id = id, .Description = description, .Name = name}
         End Function
     End Class
 
@@ -63,7 +63,7 @@ Public Class forestUsageReport
         Public Property executiveAuthority As reference
             Get
                 Dim v As DeliverCl = Form1.ComboBox1.SelectedValue
-                Return IIf(IsNothing(v), Nothing, New reference With {.id = v.id, .description = v.description, .name = v.name})
+                Return IIf(IsNothing(v), Nothing, New reference With {.id = v.Id, .description = v.Description, .name = v.Name})
             End Get
             Set(value As reference)
                 Dim a As catalog.mainClass.element = MyCatalor.executiveAuthority.Find(Function(x) x.id = value.id)
@@ -73,10 +73,10 @@ Public Class forestUsageReport
                     Form1.ComboBox1.Enabled = False
                 Else                                ' если есть то должен быть верно выбран пункт субъекта страны 
                     Dim s As List(Of DeliverCl) = Form1.ComboBox2.DataSource
-                    Form1.ComboBox2.SelectedIndex = s.FindIndex(Function(x) x.id = a.subject.id)
+                    Form1.ComboBox2.SelectedIndex = s.FindIndex(Function(x) x.Id = a.subject.id)
                     ' загружаем списик лесхозов
                     s = Form1.ComboBox1.DataSource
-                    Form1.ComboBox1.SelectedIndex = s.FindIndex(Function(x) x.id = value.id)
+                    Form1.ComboBox1.SelectedIndex = s.FindIndex(Function(x) x.Id = value.id)
                 End If
             End Set
         End Property
@@ -526,35 +526,30 @@ Public Class forestUsageReport
         End Function
 
         Public Function toXml() As String Implements IRow.toXml
-            Dim deep As String = ""
-
-            deep = "		<row>" & vbCr &
-             "			<location>" & vbCr &
-                      "				<ct:forestry" & location.forestry.ToString & vbCr &
-                      "				<ct:subforestry" & location.subforestry.ToString & vbCr &
-                      "				<ct:tract" & location.tract.ToString & vbCr &
-                     $"				<ct:quarter>{location.quarter}</ct:quarter>" & vbCr &
-                     $"				<ct:taxationUnit>{location.taxationUnit}</ct:taxationUnit>" & vbCr &
-                     $"				<ct:cuttingArea>{location.cuttingArea}</ct:cuttingArea>" & vbCr &
-             "			</location>" & vbCr &
-            $"			<areaSquare>{ПреобразоватьСтроку(areaSquare)}</areaSquare>" & vbCr &
-            $"			<areaCutting>{ПреобразоватьСтроку(areaCutting)}</areaCutting>" & vbCr &
-            $"			<farm>{farm}</farm>" & vbCr &
-            $"			<formCutting>{formCutting}</formCutting>" & vbCr &
-             "			<typeCutting" & typeCutting.ToString & vbCr &
-             "			<wood" & wood.ToString & vbCr &
-             "			<sortiment" & sortiment.ToString & vbCr &
-            $"			<value>{ПреобразоватьСтроку(value)}</value>" & vbCr &
-            $"			<note>{note}</note>" & vbCr &
-          "		</row>"
-
+            Dim deep As String = "		<row>" & vbCr &
+ "			<location>" & vbCr &
+          "				<ct:forestry" & location.forestry.ToString & vbCr &
+          "				<ct:subforestry" & location.subforestry.ToString & vbCr &
+          "				<ct:tract" & location.tract.ToString & vbCr &
+         $"				<ct:quarter>{location.quarter}</ct:quarter>" & vbCr &
+         $"				<ct:taxationUnit>{location.taxationUnit}</ct:taxationUnit>" & vbCr &
+         $"				<ct:cuttingArea>{location.cuttingArea}</ct:cuttingArea>" & vbCr &
+ "			</location>" & vbCr &
+$"			<areaSquare>{ПреобразоватьСтроку(areaSquare)}</areaSquare>" & vbCr &
+$"			<areaCutting>{ПреобразоватьСтроку(areaCutting)}</areaCutting>" & vbCr &
+$"			<farm>{farm}</farm>" & vbCr &
+$"			<formCutting>{formCutting}</formCutting>" & vbCr &
+ "			<typeCutting" & typeCutting.ToString & vbCr &
+ "			<wood" & wood.ToString & vbCr &
+ "			<sortiment" & sortiment.ToString & vbCr &
+$"			<value>{ПреобразоватьСтроку(value)}</value>" & vbCr &
+$"			<note>{note}</note>" & vbCr &
+"		</row>"
             Return deep
         End Function
 
         Public Function toHtml() As String Implements IRow.toHtml
-            Dim deep$ = ""
-
-            deep = $"<tr>
+            Dim deep As String = $"<tr>
   <td width=132 colspan=2 valign=top style='width:99.25pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
@@ -645,7 +640,6 @@ Public Class forestUsageReport
   </td>
   <td style='border:none;padding:0cm 0cm 0cm 0cm' width=0><p class='MsoNormal'>&nbsp;</td>
  </tr>"
-
             Return deep
         End Function
 
@@ -676,30 +670,25 @@ Public Class forestUsageReport
             Return h.ToArray
         End Function
         Public Function toXml() As String Implements IRow.toXml
-            Dim deep As String = ""
-
-            deep = "		<row>" & vbCr &
-                $"          <usageType>{usageType}</usageType>" & vbCr &
-                 " 			<location>" & vbCr &
-                          "				<ct:forestry" & location.forestry.ToString & vbCr &
-                          "				<ct:subforestry" & location.subforestry.ToString & vbCr &
-                          "				<ct:tract" & location.tract.ToString & vbCr &
-                         $"				<ct:quarter>{location.quarter}</ct:quarter>" & vbCr &
-                         $"				<ct:taxationUnit>{location.taxationUnit}</ct:taxationUnit>" & vbCr &
-                         $"				<ct:cuttingArea>{location.cuttingArea}</ct:cuttingArea>" & vbCr &
-                 "			</location>" & vbCr &
-                $"			<area>{ПреобразоватьСтроку(area)}</area>" & vbCr &
-                $"			<resourceType>{resourceType}</resourceType>" & vbCr &
-                $"			<unitType>{unitType}</unitType>" & vbCr &
-                $"			<volume>{volume}</volume>" & vbCr &
-                 "		</row>"
-
+            Dim deep As String = "		<row>" & vbCr &
+    $"          <usageType>{usageType}</usageType>" & vbCr &
+     " 			<location>" & vbCr &
+              "				<ct:forestry" & location.forestry.ToString & vbCr &
+              "				<ct:subforestry" & location.subforestry.ToString & vbCr &
+              "				<ct:tract" & location.tract.ToString & vbCr &
+             $"				<ct:quarter>{location.quarter}</ct:quarter>" & vbCr &
+             $"				<ct:taxationUnit>{location.taxationUnit}</ct:taxationUnit>" & vbCr &
+             $"				<ct:cuttingArea>{location.cuttingArea}</ct:cuttingArea>" & vbCr &
+     "			</location>" & vbCr &
+    $"			<area>{ПреобразоватьСтроку(area)}</area>" & vbCr &
+    $"			<resourceType>{resourceType}</resourceType>" & vbCr &
+    $"			<unitType>{unitType}</unitType>" & vbCr &
+    $"			<volume>{volume}</volume>" & vbCr &
+     "		</row>"
             Return deep
         End Function
         Public Function toHtml() As String Implements IRow.toHtml
-            Dim deep$ = ""
-
-            deep$ = $"<tr> 	
+            Dim deep As String = $"<tr> 	
  	<td width=196 colspan=5 valign=top style='width:147.05pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
  		<p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
@@ -761,7 +750,6 @@ Public Class forestUsageReport
  	</td>
  	<td style='border:none;padding:0cm 0cm 0cm 0cm' width=0><p class='MsoNormal'>&nbsp;</td>
  </tr>"
-
             Return deep
         End Function
     End Class
@@ -804,36 +792,31 @@ Public Class forestUsageReport
         End Function
 
         Public Function toXml() As String Implements IRow.toXml
-            Dim deep As String = ""
-
-            deep = "		<row>" & vbCr &
-               $"			<ct:measure>{measure.ToString}</ct:measure>" & vbCr &
-               $"			<ct:object>{[object].ToString}</ct:object>" & vbCr &
-                "			<location>" & vbCr &
-                         "				<ct:forestry" & location.forestry.ToString & vbCr &
-                         "				<ct:subforestry" & location.subforestry.ToString & vbCr &
-                         "				<ct:tract" & location.tract.ToString & vbCr &
-                        $"				<ct:quarter>{location.quarter}</ct:quarter>" & vbCr &
-                        $"				<ct:taxationUnit>{location.taxationUnit}</ct:taxationUnit>" & vbCr &
-                        $"				<ct:cuttingArea>{location.cuttingArea}</ct:cuttingArea>" & vbCr &
-                "			</location>" & vbCr &
-               $"			<area>{ПреобразоватьСтроку(area)}</area>" & vbCr &
-               $"			<farm>{farm}</farm>" & vbCr &
-               $"			<formCutting>{formCutting}</formCutting>" & vbCr &
-               $"			<ct:typeCutting>{typeCutting.ToString}</ct:typeCutting>" & vbCr &
-                " 			<ct:wood" & wood.ToString & vbCr &
-                "			<ct:sortiment" & sortiment.ToString & vbCr &
-               $"			<value>{ПреобразоватьСтроку(value)}</value>" & vbCr &
-               $"			<commercialValue>{ПреобразоватьСтроку(commercialValue)}</commercialValue>" & vbCr &
-                "		</row>"
-
+            Dim deep As String = "		<row>" & vbCr &
+   $"			<ct:measure>{measure.ToString}</ct:measure>" & vbCr &
+   $"			<ct:object>{[object].ToString}</ct:object>" & vbCr &
+    "			<location>" & vbCr &
+             "				<ct:forestry" & location.forestry.ToString & vbCr &
+             "				<ct:subforestry" & location.subforestry.ToString & vbCr &
+             "				<ct:tract" & location.tract.ToString & vbCr &
+            $"				<ct:quarter>{location.quarter}</ct:quarter>" & vbCr &
+            $"				<ct:taxationUnit>{location.taxationUnit}</ct:taxationUnit>" & vbCr &
+            $"				<ct:cuttingArea>{location.cuttingArea}</ct:cuttingArea>" & vbCr &
+    "			</location>" & vbCr &
+   $"			<area>{ПреобразоватьСтроку(area)}</area>" & vbCr &
+   $"			<farm>{farm}</farm>" & vbCr &
+   $"			<formCutting>{formCutting}</formCutting>" & vbCr &
+   $"			<ct:typeCutting>{typeCutting.ToString}</ct:typeCutting>" & vbCr &
+    " 			<ct:wood" & wood.ToString & vbCr &
+    "			<ct:sortiment" & sortiment.ToString & vbCr &
+   $"			<value>{ПреобразоватьСтроку(value)}</value>" & vbCr &
+   $"			<commercialValue>{ПреобразоватьСтроку(commercialValue)}</commercialValue>" & vbCr &
+    "		</row>"
             Return deep
         End Function
 
         Public Function toHtml() As String Implements IRow.toHtml
-            Dim deep$ = ""
-
-            deep$ = $"<tr>
+            Dim deep As String = $"<tr>
   <td style='border:none;padding:0cm 0cm 0cm 0cm' width=0><p class='MsoNormal'>&nbsp;</td>
   <td width=178 colspan=3 valign=top style='width:133.25pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
@@ -931,7 +914,6 @@ Public Class forestUsageReport
   line-height:normal'><span >{commercialValue}</span></p>
   </td>
  </tr>"
-
             Return deep
         End Function
     End Class

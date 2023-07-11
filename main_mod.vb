@@ -1,9 +1,11 @@
 ﻿
 
 Module main_mod
-    Public Const VERXSD As String = "http://rosleshoz.gov.ru/xmlns/forestUsageReport/3.2" ' Изменить если появилась актуальная версия 
-    Public Const VERCTYPE As String = "http://rosleshoz.gov.ru/xmlns/cTypes/3.1" ' Изменить если появилась актуальная версия 
-    Public Const VERSTYPE As String = "http://rosleshoz.gov.ru/xmlns/sTypes/3.1" ' Изменить если появилась актуальная версия 
+    Public Const VERXSD = "http://rosleshoz.gov.ru/xmlns/forestUsageReport/3.2" ' Изменить если появилась актуальная версия 
+    Public Const VERCTYPE = "http://rosleshoz.gov.ru/xmlns/cTypes/3.1" ' Изменить если появилась актуальная версия 
+    Public Const VERSTYPE = "http://rosleshoz.gov.ru/xmlns/sTypes/3.1" ' Изменить если появилась актуальная версия 
+    Public Const VERCAT = "http://rosleshoz.gov.ru/xmlns/catalogs/4.1" ' Изменить если появилась актуальная версия 
+    Public Const VERCATTYPE = "http://rosleshoz.gov.ru/xmlns/catalogsTypes/4.1" ' Изменить если появилась актуальная версия 
     Public ReadOnly Property MyCurDir As String = My.Application.Info.DirectoryPath ' папка где exe
     Public ReadOnly Property MyCurDirLib As String = My.Application.Info.DirectoryPath & "\sFiles\" ' накопительные файлы
     Public ReadOnly Property vbC As String = """" ' кавычки
@@ -61,13 +63,15 @@ Module main_mod
     ''' сохраняет базу данных в файл
     ''' </summary>
     Public Sub SaveXmlDataBase()
+        Dim w As New IO.StreamWriter(MyCurDir & "\DataBase.xml")
         Try
             Dim s As New Xml.Serialization.XmlSerializer(GetType(DataBase))
-            Dim w As New IO.StreamWriter(MyCurDir & "\DataBase.xml")
             s.Serialize(w, myDataBase)
-            w.Close()
         Catch ex As Exception
             LogError(ex.Message)
+        Finally
+            Dim dis As IDisposable = w
+            dis.Dispose()
         End Try
     End Sub
 
@@ -91,7 +95,7 @@ Module main_mod
             If Len(sINN) = 10 Then
                 SUM = 0
                 For i = 0 To 8
-                    SUM = SUM + CInt(Mid(sINN, i + 1, 1)) * factor1(i)
+                    SUM += CInt(Mid(sINN, i + 1, 1)) * factor1(i)
                 Next i
                 SUM = SUM Mod 11
                 SUM = SUM Mod 10
@@ -105,13 +109,13 @@ Module main_mod
             ElseIf Len(inn) = 12 Then
                 SUM = 0
                 For i = 0 To 9
-                    SUM = SUM + CInt(Mid(sINN, i + 1, 1)) * factor2(i)
+                    SUM += CInt(Mid(sINN, i + 1, 1)) * factor2(i)
                 Next i
                 SUM = SUM Mod 11
                 SUM = SUM Mod 10
                 sum2 = 0
                 For i = 0 To 10
-                    sum2 = sum2 + CInt(Mid(sINN, i + 1, 1)) * factor3(i)
+                    sum2 += CInt(Mid(sINN, i + 1, 1)) * factor3(i)
                 Next i
                 sum2 = sum2 Mod 11
                 sum2 = sum2 Mod 10

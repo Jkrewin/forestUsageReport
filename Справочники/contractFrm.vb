@@ -6,7 +6,7 @@ Public Class contractFrm
     Private Sub contractFrm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Panel1.Dock = DockStyle.Fill
         CtusageType.DisplayMember = "name"
-        Dim jj As List(Of DeliverCl) = (From tv In MyCatalor.usageType Select New DeliverCl With {.id = tv.id, .name = tv.name}).ToList.Cast(Of DeliverCl)
+        Dim jj As List(Of DeliverCl) = (From tv In MyCatalor.usageType Select New DeliverCl With {.Id = tv.id, .Name = tv.name}).ToList.Cast(Of DeliverCl)
         jj.Insert(0, New DeliverCl)
         CtusageType.DataSource = jj
 

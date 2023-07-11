@@ -15,22 +15,22 @@
 
     Private Sub measureRowFrm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         measure.DisplayMember = "name"
-        measure.DataSource = (From tv In MyCatalor.measure Select New DeliverCl With {.id = tv.id, .name = tv.name}).ToList.Cast(Of DeliverCl)
+        measure.DataSource = (From tv In MyCatalor.measure Select New DeliverCl With {.Id = tv.id, .Name = tv.name}).ToList.Cast(Of DeliverCl)
 
         objectCB.DisplayMember = "name"
-        objectCB.DataSource = (From tv In MyCatalor.object Select New DeliverCl With {.id = tv.id, .name = tv.name}).ToList.Cast(Of DeliverCl)
+        objectCB.DataSource = (From tv In MyCatalor.object Select New DeliverCl With {.Id = tv.id, .Name = tv.name}).ToList.Cast(Of DeliverCl)
 
         typeCutting.DisplayMember = "name"
-        typeCutting.DataSource = (From tv In MyCatalor.typeCutting Select New DeliverCl With {.id = tv.id, .name = tv.name}).ToList.Cast(Of DeliverCl)
+        typeCutting.DataSource = (From tv In MyCatalor.typeCutting Select New DeliverCl With {.Id = tv.id, .Name = tv.name}).ToList.Cast(Of DeliverCl)
 
         wood.DisplayMember = "description"
-        wood.DataSource = (From tv In MyCatalor.wood Select New DeliverCl With {.id = tv.id, .name = tv.name, .description = tv.okpd & " " & tv.name}).ToList.Cast(Of DeliverCl)
+        wood.DataSource = (From tv In MyCatalor.wood Select New DeliverCl With {.Id = tv.id, .Name = tv.name, .Description = tv.okpd & " " & tv.name}).ToList.Cast(Of DeliverCl)
 
         forestry.DisplayMember = "name"
-        forestry.DataSource = (From tv In MyCatalor.forestry Where tv.subject.id = CType(Form1.ComboBox2.SelectedValue, DeliverCl).id Select New DeliverCl With {.id = tv.id, .name = tv.name}).ToList.Cast(Of DeliverCl)
+        forestry.DataSource = (From tv In MyCatalor.forestry Where tv.subject.id = CType(Form1.ComboBox2.SelectedValue, DeliverCl).Id Select New DeliverCl With {.Id = tv.id, .Name = tv.name}).ToList.Cast(Of DeliverCl)
 
         subforestry.DisplayMember = "name"
-        subforestry.DataSource = (From tv In MyCatalor.subforestry Where tv.subject.id = CType(Form1.ComboBox2.SelectedValue, DeliverCl).id Select New DeliverCl With {.id = tv.id, .name = tv.name}).ToList.Cast(Of DeliverCl)
+        subforestry.DataSource = (From tv In MyCatalor.subforestry Where tv.subject.id = CType(Form1.ComboBox2.SelectedValue, DeliverCl).Id Select New DeliverCl With {.Id = tv.id, .Name = tv.name}).ToList.Cast(Of DeliverCl)
     End Sub
     Private Sub AutoFull(ByRef a As forestUsageReport.measureRow)
         With a
