@@ -31,6 +31,14 @@
 
         subforestry.DisplayMember = "name"
         subforestry.DataSource = (From tv In MyCatalor.subforestry Where tv.subject.id = CType(Form1.ComboBox2.SelectedValue, DeliverCl).Id Select New DeliverCl With {.Id = tv.id, .Name = tv.name}).ToList.Cast(Of DeliverCl)
+
+        tree.DisplayMember = "name"
+        Dim arr As List(Of DeliverCl) = (From tv In MyCatalor.tree Select New DeliverCl With {.Id = tv.id, .Name = tv.name & "-" & tv.abbreviation, .Description = tv.abbreviation}).ToList.Cast(Of DeliverCl)
+        arr.Insert(0, New DeliverCl)
+        tree.DataSource = arr
+
+        'formCutting.Items.Clear()
+        'formCutting.Items.AddRange(myDataBase.TypeCutting.ToArray)
     End Sub
     Private Sub AutoFull(ByRef a As forestUsageReport.measureRow)
         With a
@@ -46,6 +54,7 @@
             .formCutting = formCutting.Text
             If typeCutting.SelectedValue IsNot Nothing Then .typeCutting = DirectCast(typeCutting.SelectedValue, DeliverCl)
             If wood.SelectedValue IsNot Nothing Then .wood = DirectCast(wood.SelectedValue, DeliverCl)
+            If tree.SelectedValue IsNot Nothing Then .tree = DirectCast(tree.SelectedValue, DeliverCl)
             If sortiment.SelectedValue IsNot Nothing Then .sortiment = DirectCast(sortiment.SelectedValue, DeliverCl)
             .value = value_n.Text
             .commercialValue = commercialValue.Text
@@ -72,7 +81,7 @@
         Dim a As New forestUsageReport.measureRow
         AutoFull(a)
         myDoc.measure.Add(a)
-        Form1.ref_woodHarvesting()
+        Form1.Refreh_woodHarvesting()
         Me.Close()
     End Sub
 
@@ -80,7 +89,24 @@
         If ПроверкаЗаполнения() = False Then Exit Sub
         If EditRow Is Nothing Then Exit Sub
         AutoFull(EditRow)
-        Form1.ref_woodHarvesting()
+        Form1.Refreh_woodHarvesting()
         Me.Close()
+    End Sub
+
+
+    Private Sub formCutting_LostFocus(sender As Object, e As EventArgs) Handles formCutting.LostFocus
+        myDataBase.ExistTypeCutting(formCutting)
+    End Sub
+
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        FrmFinder.Show()
+        FrmFinder.LoadComponent(tree)
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        FrmFinder.Show()
+        FrmFinder.LoadComponent(wood)
     End Sub
 End Class

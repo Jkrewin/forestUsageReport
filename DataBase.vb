@@ -4,14 +4,22 @@
 ''' Это локальня база данных для этой программы 
 ''' </summary>
 Public Class DataBase
+
+    Public Property TypeCutting As New List(Of String)
+
+    Public Property DefaultSubject As Integer
+    Public Property DefaultExecutiveAuthority As Integer
+
     Public Contract As New List(Of ContractClass)
     Public Companies As New List(Of company)
-
     Public DefaultCompany As company ' компания по умолчанию
     Public DefaultContract As ContractClass 'контакт по умолчанию
     Public DefaultsignerData As forestUsageReport.headerClass.signerDataClass ' кто подписал документ по умолчанию
-    Public Property WinState As System.Windows.Forms.FormWindowState = FormWindowState.Normal ' текущее состояние окна программы
+    Public Property WinState As FormWindowState = FormWindowState.Normal ' текущее состояние окна программы
     Public Certificates As New CertificatesClass 'сохраняеи сведения об подписи файлов
+
+    <Xml.Serialization.XmlIgnore> Public LastFinder As New Dictionary(Of String, Integer)
+
 
     Public Class CertificatesClass
         ''' <summary>
@@ -93,43 +101,43 @@ Public Class DataBase
     End Class
 
     Public Class ContractClass
-            Public Property ID As Integer = -1
-            Public Property CTtype As String
-            Public Property CTnumber As String
-            Public Property CTdate As Date = Now
-            Public Property CTregistrationNumber As String
-            Public Property CTusageType As New DeliverCl
-            Public Property CTapprovingProject As String
-            Public Property CTapprovingDate As Date = Now
-            Public Property ContractActive As Boolean = True
+        Public Property ID As Integer = -1
+        Public Property CTtype As String
+        Public Property CTnumber As String
+        Public Property CTdate As Date = Now
+        Public Property CTregistrationNumber As String
+        Public Property CTusageType As New DeliverCl
+        Public Property CTapprovingProject As String
+        Public Property CTapprovingDate As Date = Now
+        Public Property ContractActive As Boolean = True
 
 
-            Public Function toRow() As String()
-                Dim a(5) As String
-                a(0) = CTnumber
-                a(1) = CTdate
-                a(2) = CTtype
-                a(3) = CTregistrationNumber
-                a(5) = IIf(ContractActive, "Действует", "Закончен")
-                a(4) = ID
-                Return a
-            End Function
+        Public Function toRow() As String()
+            Dim a(5) As String
+            a(0) = CTnumber
+            a(1) = CTdate
+            a(2) = CTtype
+            a(3) = CTregistrationNumber
+            a(5) = IIf(ContractActive, "Действует", "Закончен")
+            a(4) = ID
+            Return a
+        End Function
 
-            Public Shared Operator =(a As ContractClass, s As ContractClass)
+        Public Shared Operator =(a As ContractClass, s As ContractClass)
             If a.CTnumber = s.CTnumber And a.CTdate.Date = s.CTdate.Date Then
                 Return True
             Else
                 Return False
-                End If
-            End Operator
-            Public Shared Operator <>(a As ContractClass, s As ContractClass)
-                If a.CTnumber = s.CTnumber And a.CTdate = s.CTdate Then
-                    Return True
-                Else
-                    Return False
-                End If
-            End Operator
-        End Class
+            End If
+        End Operator
+        Public Shared Operator <>(a As ContractClass, s As ContractClass)
+            If a.CTnumber = s.CTnumber And a.CTdate = s.CTdate Then
+                Return True
+            Else
+                Return False
+            End If
+        End Operator
+    End Class
 
     Public Class company
         Public Property ID As Integer = -1
@@ -216,5 +224,21 @@ Public Class DataBase
         End Enum
     End Class
 
+    ''' <summary>
+    ''' Проверяет и добовляет вид рубки если его нет 
+    ''' </summary>
+    ''' <param name="cbox"></param>
+    Public Sub ExistTypeCutting(ByRef cbox As ComboBox)
+        'Dim deep As String = cbox.Text
+        'If String.IsNullOrEmpty(deep) Then Exit Sub
+        'If TypeCutting.Find(Function(x) Trim(x.ToLower) = Trim(deep.ToLower)) Is Nothing Then
+        '    Dim s = MsgBox("Добавить новый элемент '" & deep & "' в список ?", MsgBoxStyle.OkCancel, "")
+        '    If s = MsgBoxResult.Ok Then
+        '        myDataBase.TypeCutting.Add(deep)
+        '        cbox.Items.Clear()
+        '        cbox.Items.AddRange(myDataBase.TypeCutting.ToArray)
+        '    End If
+        'End If
+    End Sub
 
 End Class

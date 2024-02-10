@@ -102,6 +102,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="main_mod.vb" />
+    <Compile Include="ModType.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -117,6 +118,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Справочники\FrmFinder.Designer.vb">
+      <DependentUpon>FrmFinder.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Справочники\FrmFinder.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Формы\notWoodHarvestingRowFrm.Designer.vb">
       <DependentUpon>notWoodHarvestingRowFrm.vb</DependentUpon>
@@ -171,6 +178,9 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Справочники\FrmFinder.resx">
+      <DependentUpon>FrmFinder.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Формы\notWoodHarvestingRowFrm.resx">
       <DependentUpon>notWoodHarvestingRowFrm.vb</DependentUpon>
     </EmbeddedResource>
@@ -202,7 +212,28 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="Resources\fsearch.png" />
     <Content Include="sFiles\Fprint.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Upload\forestUsageReport\4.1\forestUsageReport.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Upload\commonTypes\catalogsTypes\4.1\catalogsTypes.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Upload\commonTypes\catalogsTypes\4.2\catalogsTypes.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Upload\commonTypes\cTypes\4.3\cTypes.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Upload\commonTypes\sTypes\4.3\sTypes.xsd">
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -228,8 +259,6 @@
     </Content>
     <Content Include="xmsdw.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Upload\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

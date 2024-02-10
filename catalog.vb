@@ -57,6 +57,6 @@ Public Structure catalog
     Public resource As List(Of mainClass.element)
     Public measure As List(Of mainClass.element)
     Public [object] As List(Of mainClass.element)
-
+    Public tree As List(Of mainClass.element)
 
 End Structure

@@ -55,7 +55,7 @@
         Dim a As New forestUsageReport.notWoodHarvestingRow
         AutoFull(a)
         myDoc.notWoodHarvesting.Add(a)
-        Form1.ref_woodHarvesting()
+        Form1.Refreh_woodHarvesting()
         Me.Close()
     End Sub
 
@@ -63,7 +63,7 @@
         If ПроверкаЗаполнения() = False Then Exit Sub
         If EditRow Is Nothing Then Exit Sub
         AutoFull(EditRow)
-        Form1.ref_woodHarvesting()
+        Form1.Refreh_woodHarvesting()
         Me.Close()
     End Sub
 

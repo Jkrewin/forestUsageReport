@@ -74,6 +74,11 @@ Partial Class measureRowFrm
         Me.commercialValue = New System.Windows.Forms.NumericUpDown()
         Me.Label31 = New System.Windows.Forms.Label()
         Me.Label32 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.tree = New System.Windows.Forms.ComboBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.Panel6.SuspendLayout()
         CType(Me.area, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.value_n, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -89,7 +94,7 @@ Partial Class measureRowFrm
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1118, 39)
+        Me.Panel6.Size = New System.Drawing.Size(1117, 39)
         Me.Panel6.TabIndex = 59
         '
         'Button7
@@ -121,7 +126,7 @@ Partial Class measureRowFrm
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label7.Location = New System.Drawing.Point(409, 69)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(40, 24)
+        Me.Label7.Size = New System.Drawing.Size(39, 24)
         Me.Label7.TabIndex = 108
         Me.Label7.Text = "1"
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -145,9 +150,9 @@ Partial Class measureRowFrm
         Me.Label39.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label39.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Label39.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label39.Location = New System.Drawing.Point(409, 99)
+        Me.Label39.Location = New System.Drawing.Point(409, 98)
         Me.Label39.Name = "Label39"
-        Me.Label39.Size = New System.Drawing.Size(40, 24)
+        Me.Label39.Size = New System.Drawing.Size(39, 24)
         Me.Label39.TabIndex = 106
         Me.Label39.Text = "2"
         Me.Label39.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -158,7 +163,7 @@ Partial Class measureRowFrm
         Me.Label40.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label40.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Label40.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label40.Location = New System.Drawing.Point(12, 99)
+        Me.Label40.Location = New System.Drawing.Point(12, 98)
         Me.Label40.Name = "Label40"
         Me.Label40.Size = New System.Drawing.Size(399, 24)
         Me.Label40.TabIndex = 107
@@ -171,7 +176,7 @@ Partial Class measureRowFrm
         Me.objectCB.BackColor = System.Drawing.Color.WhiteSmoke
         Me.objectCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.objectCB.FormattingEnabled = True
-        Me.objectCB.Location = New System.Drawing.Point(450, 99)
+        Me.objectCB.Location = New System.Drawing.Point(451, 98)
         Me.objectCB.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.objectCB.Name = "objectCB"
         Me.objectCB.Size = New System.Drawing.Size(569, 24)
@@ -183,7 +188,7 @@ Partial Class measureRowFrm
         Me.measure.BackColor = System.Drawing.Color.WhiteSmoke
         Me.measure.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.measure.FormattingEnabled = True
-        Me.measure.Location = New System.Drawing.Point(450, 69)
+        Me.measure.Location = New System.Drawing.Point(451, 69)
         Me.measure.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.measure.Name = "measure"
         Me.measure.Size = New System.Drawing.Size(569, 24)
@@ -197,7 +202,7 @@ Partial Class measureRowFrm
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label1.Location = New System.Drawing.Point(409, 129)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(40, 24)
+        Me.Label1.Size = New System.Drawing.Size(39, 24)
         Me.Label1.TabIndex = 126
         Me.Label1.Text = "3"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -223,7 +228,7 @@ Partial Class measureRowFrm
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label9.Location = New System.Drawing.Point(409, 159)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(40, 24)
+        Me.Label9.Size = New System.Drawing.Size(39, 24)
         Me.Label9.TabIndex = 124
         Me.Label9.Text = "4"
         Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -249,7 +254,7 @@ Partial Class measureRowFrm
         Me.Label37.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label37.Location = New System.Drawing.Point(409, 191)
         Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(40, 24)
+        Me.Label37.Size = New System.Drawing.Size(39, 24)
         Me.Label37.TabIndex = 122
         Me.Label37.Text = "5"
         Me.Label37.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -275,7 +280,7 @@ Partial Class measureRowFrm
         Me.Label29.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label29.Location = New System.Drawing.Point(409, 223)
         Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(40, 24)
+        Me.Label29.Size = New System.Drawing.Size(39, 24)
         Me.Label29.TabIndex = 120
         Me.Label29.Text = "6"
         Me.Label29.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -301,7 +306,7 @@ Partial Class measureRowFrm
         Me.Label24.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label24.Location = New System.Drawing.Point(409, 255)
         Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(40, 24)
+        Me.Label24.Size = New System.Drawing.Size(39, 24)
         Me.Label24.TabIndex = 118
         Me.Label24.Text = "7"
         Me.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -327,7 +332,7 @@ Partial Class measureRowFrm
         Me.Label22.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label22.Location = New System.Drawing.Point(409, 287)
         Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(40, 24)
+        Me.Label22.Size = New System.Drawing.Size(39, 24)
         Me.Label22.TabIndex = 116
         Me.Label22.Text = "8"
         Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -351,7 +356,7 @@ Partial Class measureRowFrm
         Me.tract.BackColor = System.Drawing.Color.WhiteSmoke
         Me.tract.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.tract.FormattingEnabled = True
-        Me.tract.Location = New System.Drawing.Point(450, 191)
+        Me.tract.Location = New System.Drawing.Point(451, 191)
         Me.tract.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.tract.Name = "tract"
         Me.tract.Size = New System.Drawing.Size(569, 24)
@@ -363,7 +368,7 @@ Partial Class measureRowFrm
         Me.subforestry.BackColor = System.Drawing.Color.WhiteSmoke
         Me.subforestry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.subforestry.FormattingEnabled = True
-        Me.subforestry.Location = New System.Drawing.Point(450, 159)
+        Me.subforestry.Location = New System.Drawing.Point(451, 159)
         Me.subforestry.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.subforestry.Name = "subforestry"
         Me.subforestry.Size = New System.Drawing.Size(569, 24)
@@ -375,7 +380,7 @@ Partial Class measureRowFrm
         Me.forestry.BackColor = System.Drawing.Color.WhiteSmoke
         Me.forestry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.forestry.FormattingEnabled = True
-        Me.forestry.Location = New System.Drawing.Point(450, 129)
+        Me.forestry.Location = New System.Drawing.Point(451, 129)
         Me.forestry.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.forestry.Name = "forestry"
         Me.forestry.Size = New System.Drawing.Size(569, 24)
@@ -387,7 +392,7 @@ Partial Class measureRowFrm
         Me.taxationUnit.BackColor = System.Drawing.Color.WhiteSmoke
         Me.taxationUnit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.taxationUnit.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.taxationUnit.Location = New System.Drawing.Point(450, 255)
+        Me.taxationUnit.Location = New System.Drawing.Point(451, 255)
         Me.taxationUnit.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.taxationUnit.MaxLength = 4
         Me.taxationUnit.Name = "taxationUnit"
@@ -401,11 +406,11 @@ Partial Class measureRowFrm
         Me.quarter.BackColor = System.Drawing.Color.WhiteSmoke
         Me.quarter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.quarter.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.quarter.Location = New System.Drawing.Point(450, 223)
+        Me.quarter.Location = New System.Drawing.Point(451, 223)
         Me.quarter.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.quarter.MaxLength = 4
         Me.quarter.Name = "quarter"
-        Me.quarter.Size = New System.Drawing.Size(60, 24)
+        Me.quarter.Size = New System.Drawing.Size(61, 24)
         Me.quarter.TabIndex = 131
         Me.quarter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -415,7 +420,7 @@ Partial Class measureRowFrm
         Me.cuttingArea.BackColor = System.Drawing.Color.WhiteSmoke
         Me.cuttingArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.cuttingArea.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.cuttingArea.Location = New System.Drawing.Point(450, 287)
+        Me.cuttingArea.Location = New System.Drawing.Point(451, 287)
         Me.cuttingArea.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.cuttingArea.MaxLength = 4
         Me.cuttingArea.Name = "cuttingArea"
@@ -426,9 +431,9 @@ Partial Class measureRowFrm
         'area
         '
         Me.area.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.area.DecimalPlaces = 2
+        Me.area.DecimalPlaces = 6
         Me.area.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.area.Location = New System.Drawing.Point(450, 318)
+        Me.area.Location = New System.Drawing.Point(451, 318)
         Me.area.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.area.Maximum = New Decimal(New Integer() {9999999, 0, 0, 0})
         Me.area.Name = "area"
@@ -443,7 +448,7 @@ Partial Class measureRowFrm
         Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label13.Location = New System.Drawing.Point(409, 318)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(40, 24)
+        Me.Label13.Size = New System.Drawing.Size(39, 24)
         Me.Label13.TabIndex = 138
         Me.Label13.Text = "9"
         Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -482,7 +487,7 @@ Partial Class measureRowFrm
         Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label11.Location = New System.Drawing.Point(409, 350)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(40, 24)
+        Me.Label11.Size = New System.Drawing.Size(39, 24)
         Me.Label11.TabIndex = 136
         Me.Label11.Text = "10"
         Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -508,7 +513,7 @@ Partial Class measureRowFrm
         Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label15.Location = New System.Drawing.Point(409, 478)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(40, 24)
+        Me.Label15.Size = New System.Drawing.Size(39, 24)
         Me.Label15.TabIndex = 150
         Me.Label15.Text = "14"
         Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -519,7 +524,7 @@ Partial Class measureRowFrm
         Me.sortiment.BackColor = System.Drawing.Color.WhiteSmoke
         Me.sortiment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.sortiment.FormattingEnabled = True
-        Me.sortiment.Location = New System.Drawing.Point(451, 478)
+        Me.sortiment.Location = New System.Drawing.Point(451, 510)
         Me.sortiment.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.sortiment.Name = "sortiment"
         Me.sortiment.Size = New System.Drawing.Size(568, 24)
@@ -531,7 +536,7 @@ Partial Class measureRowFrm
         Me.Label16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label16.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label16.Location = New System.Drawing.Point(12, 478)
+        Me.Label16.Location = New System.Drawing.Point(12, 508)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(399, 24)
         Me.Label16.TabIndex = 151
@@ -546,7 +551,7 @@ Partial Class measureRowFrm
         Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label17.Location = New System.Drawing.Point(409, 382)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(40, 24)
+        Me.Label17.Size = New System.Drawing.Size(39, 24)
         Me.Label17.TabIndex = 148
         Me.Label17.Text = "11"
         Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -572,7 +577,7 @@ Partial Class measureRowFrm
         Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label19.Location = New System.Drawing.Point(409, 446)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(40, 24)
+        Me.Label19.Size = New System.Drawing.Size(39, 24)
         Me.Label19.TabIndex = 146
         Me.Label19.Text = "13"
         Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -583,7 +588,7 @@ Partial Class measureRowFrm
         Me.wood.BackColor = System.Drawing.Color.WhiteSmoke
         Me.wood.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.wood.FormattingEnabled = True
-        Me.wood.Location = New System.Drawing.Point(451, 447)
+        Me.wood.Location = New System.Drawing.Point(451, 479)
         Me.wood.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.wood.Name = "wood"
         Me.wood.Size = New System.Drawing.Size(568, 24)
@@ -595,7 +600,7 @@ Partial Class measureRowFrm
         Me.Label20.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label20.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label20.Location = New System.Drawing.Point(12, 446)
+        Me.Label20.Location = New System.Drawing.Point(12, 478)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(399, 24)
         Me.Label20.TabIndex = 147
@@ -610,7 +615,7 @@ Partial Class measureRowFrm
         Me.Label21.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label21.Location = New System.Drawing.Point(409, 414)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(40, 24)
+        Me.Label21.Size = New System.Drawing.Size(39, 24)
         Me.Label21.TabIndex = 144
         Me.Label21.Text = "12"
         Me.Label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -621,7 +626,7 @@ Partial Class measureRowFrm
         Me.Label25.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label25.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Label25.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label25.Location = New System.Drawing.Point(12, 414)
+        Me.Label25.Location = New System.Drawing.Point(12, 446)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(399, 24)
         Me.Label25.TabIndex = 145
@@ -630,6 +635,7 @@ Partial Class measureRowFrm
         '
         'formCutting
         '
+        Me.formCutting.AccessibleDescription = "formCutting"
         Me.formCutting.AccessibleName = ""
         Me.formCutting.BackColor = System.Drawing.Color.WhiteSmoke
         Me.formCutting.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -647,7 +653,7 @@ Partial Class measureRowFrm
         Me.typeCutting.BackColor = System.Drawing.Color.WhiteSmoke
         Me.typeCutting.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.typeCutting.FormattingEnabled = True
-        Me.typeCutting.Location = New System.Drawing.Point(451, 414)
+        Me.typeCutting.Location = New System.Drawing.Point(451, 446)
         Me.typeCutting.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.typeCutting.Name = "typeCutting"
         Me.typeCutting.Size = New System.Drawing.Size(568, 24)
@@ -658,7 +664,7 @@ Partial Class measureRowFrm
         Me.value_n.BackColor = System.Drawing.Color.WhiteSmoke
         Me.value_n.DecimalPlaces = 2
         Me.value_n.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.value_n.Location = New System.Drawing.Point(450, 508)
+        Me.value_n.Location = New System.Drawing.Point(451, 542)
         Me.value_n.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.value_n.Maximum = New Decimal(New Integer() {9999999, 0, 0, 0})
         Me.value_n.Name = "value_n"
@@ -673,7 +679,7 @@ Partial Class measureRowFrm
         Me.Label26.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.Label26.Location = New System.Drawing.Point(409, 508)
         Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(40, 24)
+        Me.Label26.Size = New System.Drawing.Size(39, 24)
         Me.Label26.TabIndex = 153
         Me.Label26.Text = "15"
         Me.Label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -684,7 +690,7 @@ Partial Class measureRowFrm
         Me.Label27.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label27.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Label27.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label27.Location = New System.Drawing.Point(12, 508)
+        Me.Label27.Location = New System.Drawing.Point(12, 542)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(399, 24)
         Me.Label27.TabIndex = 154
@@ -696,7 +702,7 @@ Partial Class measureRowFrm
         Me.commercialValue.BackColor = System.Drawing.Color.WhiteSmoke
         Me.commercialValue.DecimalPlaces = 2
         Me.commercialValue.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.commercialValue.Location = New System.Drawing.Point(450, 541)
+        Me.commercialValue.Location = New System.Drawing.Point(451, 574)
         Me.commercialValue.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.commercialValue.Maximum = New Decimal(New Integer() {9999999, 0, 0, 0})
         Me.commercialValue.Name = "commercialValue"
@@ -709,9 +715,9 @@ Partial Class measureRowFrm
         Me.Label31.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label31.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Label31.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label31.Location = New System.Drawing.Point(409, 541)
+        Me.Label31.Location = New System.Drawing.Point(409, 542)
         Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(40, 24)
+        Me.Label31.Size = New System.Drawing.Size(39, 24)
         Me.Label31.TabIndex = 156
         Me.Label31.Text = "16"
         Me.Label31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -722,19 +728,84 @@ Partial Class measureRowFrm
         Me.Label32.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label32.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Label32.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label32.Location = New System.Drawing.Point(12, 541)
+        Me.Label32.Location = New System.Drawing.Point(12, 574)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(399, 24)
         Me.Label32.TabIndex = 157
         Me.Label32.Text = "в том числе деловой"
         Me.Label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'Label3
+        '
+        Me.Label3.BackColor = System.Drawing.Color.OldLace
+        Me.Label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label3.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label3.Location = New System.Drawing.Point(409, 574)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(39, 24)
+        Me.Label3.TabIndex = 158
+        Me.Label3.Text = "17"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label4
+        '
+        Me.Label4.BackColor = System.Drawing.Color.FloralWhite
+        Me.Label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label4.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label4.Location = New System.Drawing.Point(12, 414)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(399, 24)
+        Me.Label4.TabIndex = 159
+        Me.Label4.Text = "Древесные породы"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'tree
+        '
+        Me.tree.AccessibleName = ""
+        Me.tree.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.tree.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.tree.FormattingEnabled = True
+        Me.tree.Location = New System.Drawing.Point(451, 414)
+        Me.tree.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.tree.Name = "tree"
+        Me.tree.Size = New System.Drawing.Size(568, 24)
+        Me.tree.TabIndex = 160
+        '
+        'Button1
+        '
+        Me.Button1.BackgroundImage = Global.forestUsageReport_VB.My.Resources.Resources.fsearch
+        Me.Button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Button1.Location = New System.Drawing.Point(1025, 414)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(27, 25)
+        Me.Button1.TabIndex = 161
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Button3
+        '
+        Me.Button3.BackgroundImage = Global.forestUsageReport_VB.My.Resources.Resources.fsearch
+        Me.Button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Button3.Location = New System.Drawing.Point(1025, 479)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(27, 25)
+        Me.Button3.TabIndex = 162
+        Me.Button3.UseVisualStyleBackColor = True
+        '
         'measureRowFrm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(1118, 688)
+        Me.ClientSize = New System.Drawing.Size(1117, 688)
+        Me.Controls.Add(Me.Button3)
+        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.tree)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.commercialValue)
         Me.Controls.Add(Me.Label31)
         Me.Controls.Add(Me.Label32)
@@ -786,6 +857,7 @@ Partial Class measureRowFrm
         Me.Controls.Add(Me.Panel6)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Name = "measureRowFrm"
         Me.Text = "Мероприятия, связанные с использованием лесов"
         Me.Panel6.ResumeLayout(False)
@@ -848,4 +920,9 @@ Partial Class measureRowFrm
     Friend WithEvents commercialValue As NumericUpDown
     Friend WithEvents Label31 As Label
     Friend WithEvents Label32 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents tree As ComboBox
+    Friend WithEvents Button1 As Button
+    Friend WithEvents Button3 As Button
 End Class

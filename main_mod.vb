@@ -1,17 +1,21 @@
 ﻿
 
 Module main_mod
-    Public Const VERXSD = "http://rosleshoz.gov.ru/xmlns/forestUsageReport/3.2" ' Изменить если появилась актуальная версия 
-    Public Const VERCTYPE = "http://rosleshoz.gov.ru/xmlns/cTypes/3.1" ' Изменить если появилась актуальная версия 
-    Public Const VERSTYPE = "http://rosleshoz.gov.ru/xmlns/sTypes/3.1" ' Изменить если появилась актуальная версия 
+    Public Const VERXSD = "http://rosleshoz.gov.ru/xmlns/forestUsageReport/4.1" ' Изменить если появилась актуальная версия 
+    Public Const VERCTYPE = "http://rosleshoz.gov.ru/xmlns/cTypes/4.3" ' Изменить если появилась актуальная версия 
+    Public Const VERSTYPE = "http://rosleshoz.gov.ru/xmlns/sTypes/4.3" ' Изменить если появилась актуальная версия 
     Public Const VERCAT = "http://rosleshoz.gov.ru/xmlns/catalogs/4.1" ' Изменить если появилась актуальная версия 
     Public Const VERCATTYPE = "http://rosleshoz.gov.ru/xmlns/catalogsTypes/4.1" ' Изменить если появилась актуальная версия 
+
+
+
     Public ReadOnly Property MyCurDir As String = My.Application.Info.DirectoryPath ' папка где exe
     Public ReadOnly Property MyCurDirLib As String = My.Application.Info.DirectoryPath & "\sFiles\" ' накопительные файлы
     Public ReadOnly Property vbC As String = """" ' кавычки
     Public myDoc As New forestUsageReport
     Public myDataBase As New DataBase
     Public Property MyCatalor As catalog
+
 
 
     ''' <summary>
@@ -131,8 +135,7 @@ Module main_mod
     End Function
 
     Public Function checkOGRN(OGRNstring As String) As Boolean
-
-        Dim Number As Long = 0
+        Dim Number As Long
         Try
             Number = Int64.Parse(OGRNstring)
         Catch ex As Exception
@@ -196,5 +199,159 @@ Module main_mod
 
     Public Function Число00(i As Integer) As String
         Return String.Format("{0:0#}", i)
+    End Function
+
+    Public Function SetDateTimePicker(dp As DateTimePicker) As String
+        Return dp.Value.Year & "-" & Число00(dp.Value.Month) & "-" & Число00(dp.Value.Day)
+    End Function
+
+    Private Function CustomAtt(tv As Reflection.PropertyInfo) As ModType
+        If tv.GetCustomAttributes(False).Count <> 0 Then
+            For Each cast In tv.GetCustomAttributes(False)
+                Return TryCast(cast, ModType)
+            Next
+        End If
+        Return Nothing
+    End Function
+
+    Private Function FindControl(cn As Control, name As String) As Control
+        For Each cntrl As Control In cn.Controls
+            If cntrl.AccessibleName IsNot Nothing Then
+                If cntrl.AccessibleName.ToLower = name.ToLower Then
+                    Return cntrl
+                End If
+            End If
+        Next
+        Return Nothing
+    End Function
+
+    ''' <summary>
+    ''' Получает данные из класса и заполняет форму
+    ''' </summary>
+    ''' <typeparam name="T"></typeparam>
+    ''' <param name="obj"></param>
+    ''' <param name="cn"></param>
+    Public Sub ModGetDate(Of T)(obj As Object, cn As Control)
+        Dim cl As T = obj
+        For Each tv In cl.GetType.GetProperties
+            Dim mo = CustomAtt(tv)
+            Dim cntrl = FindControl(cn, tv.Name)
+            If (mo IsNot Nothing) And (cntrl IsNot Nothing) Then
+                If mo.Format = ModType.FormattingRule.НапрямуюTAG Then
+                    'Прямой тип
+                    cntrl.Tag = tv.GetValue(cl)
+                    cntrl.Text = tv.GetValue(cl).ToString()
+                Else
+                    Select Case cntrl.GetType.Name
+                        Case "TextBox"
+                            Dim tbox As TextBox = cntrl
+                            tbox.Text = tv.GetValue(cl)
+                        Case "ComboBox"
+                            Dim cbox As ComboBox = cntrl
+                            Dim value As String = tv.GetValue(cl)
+                            Dim de As IEnumerable(Of DeliverCl) = TryCast(cbox.DataSource, IEnumerable(Of DeliverCl))
+                            For i = 0 To de.Count - 1
+                                If de(i).Id = value Then
+                                    cbox.SelectedItem = i
+                                    Exit For
+                                End If
+                            Next
+                        Case "NumericUpDown"
+                            Dim nbox As NumericUpDown = cntrl
+                            nbox.Value = tv.GetValue(cl)
+                        Case "DateTimePicker"
+                            Dim dtbox As DateTimePicker = cntrl
+                            dtbox.Value = tv.GetValue(cl)
+                        Case "Label"
+                            Dim label As Label = cntrl
+                            label.Text = tv.GetValue(cl)
+                    End Select
+                End If
+            End If
+        Next
+    End Sub
+
+    ''' <summary>
+    ''' изменяет класс вносит данные
+    ''' </summary>
+    ''' <typeparam name="T"></typeparam>
+    ''' <param name="obj"></param>
+    ''' <param name="cn"></param>
+    ''' <returns></returns>
+    Public Function ModSetDate(Of T)(obj As Object, cn As Control) As T
+        Dim cl As T = obj
+        For Each tv In cl.GetType.GetProperties
+            Dim mo As ModType = CustomAtt(tv)
+            Dim cntrl = FindControl(cn, tv.Name)
+            If (mo IsNot Nothing) And (cntrl IsNot Nothing) Then
+                If mo.Format = ModType.FormattingRule.НапрямуюTAG Then
+                    'Прямой тип
+                    If cntrl.Tag IsNot Nothing Then
+                        Try
+                            tv.SetValue(cl, cntrl.Tag)
+                        Catch ex As Exception
+                            LogError(ex.Message)
+                        End Try
+                    End If
+                Else
+                    Select Case cntrl.GetType.Name
+                        Case "TextBox"
+                            Dim tbox As TextBox = cntrl
+                            'подборка типов обязательна тут
+
+                            tv.SetValue(cl, tbox.Text)
+                        Case "ComboBox"
+                            Dim cbox As ComboBox = cntrl
+                            If mo.Format = ModType.FormattingRule.ТипСправочника Then
+                                'Поличаем выбранное значение как ID для типа 
+                                Dim de As DeliverCl = TryCast(cbox.SelectedValue, DeliverCl)
+                                If de IsNot Nothing Then
+                                    tv.SetValue(cl, de.Id)
+                                End If
+                            Else
+                                ' Просто получаем текст если нет ТипСправочника
+                                tv.SetValue(cl, cbox.Text)
+                            End If
+                        Case "ListBox"
+                            Dim lbox As ListBox = cntrl
+                            tv.SetValue(cl, lbox.Text)
+                        Case "NumericUpDown"
+                            Dim nbox As NumericUpDown = cntrl
+                            tv.SetValue(cl, nbox.Value)
+                        Case "DateTimePicker"
+                            Dim dtbox As DateTimePicker = cntrl
+                            tv.SetValue(cl, SetDateTimePicker(dtbox))
+                        Case "Label"
+                            Dim label As Label = cntrl
+                            tv.SetValue(cl, label.Text)
+                    End Select
+                End If
+            End If
+        Next
+        Return obj
+    End Function
+
+    ''' <summary>
+    ''' проверка на обязательные поля и длинну строк
+    ''' </summary>
+    ''' <typeparam name="T"></typeparam>
+    ''' <param name="obj"></param>
+    ''' <returns>true есть ошибки</returns>
+    Public Function ModCheckRule(Of T)(obj As Object, tab As Control) As Boolean
+        Dim erro As Boolean = False
+        Dim cl As T = obj
+
+        For Each cntrl As Control In tab.Controls
+            For Each tv In cl.GetType.GetProperties
+                If cntrl.AccessibleName IsNot Nothing Then
+                    Dim mo As ModType = CustomAtt(tv)
+                    If mo IsNot Nothing And (cntrl.AccessibleName.ToLower = tv.Name.ToLower) Then
+                        If ModType.RuleOk(cntrl, mo) = False Then erro = True
+                    End If
+                End If
+            Next
+        Next
+
+        Return erro
     End Function
 End Module

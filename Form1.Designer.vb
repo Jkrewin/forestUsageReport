@@ -127,6 +127,7 @@ Partial Class Form1
         Me.Button12 = New System.Windows.Forms.Button()
         Me.Button16 = New System.Windows.Forms.Button()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
         Me.Button20 = New System.Windows.Forms.Button()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.GroupBox11 = New System.Windows.Forms.GroupBox()
@@ -134,7 +135,6 @@ Partial Class Form1
         Me.Button17 = New System.Windows.Forms.Button()
         Me.ListView1 = New System.Windows.Forms.ListView()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
         Me.Label40 = New System.Windows.Forms.Label()
         Me.Label41 = New System.Windows.Forms.Label()
         Me.Label42 = New System.Windows.Forms.Label()
@@ -143,6 +143,8 @@ Partial Class Form1
         Me.Button1 = New System.Windows.Forms.Button()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.Label44 = New System.Windows.Forms.Label()
+        Me.TextBox31 = New System.Windows.Forms.TextBox()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.Label30 = New System.Windows.Forms.Label()
@@ -1464,10 +1466,10 @@ Partial Class Form1
         'TabPage3
         '
         Me.TabPage3.AccessibleName = "header2"
+        Me.TabPage3.Controls.Add(Me.LinkLabel2)
         Me.TabPage3.Controls.Add(Me.Button20)
         Me.TabPage3.Controls.Add(Me.LinkLabel1)
         Me.TabPage3.Controls.Add(Me.GroupBox11)
-        Me.TabPage3.Controls.Add(Me.CheckBox3)
         Me.TabPage3.Controls.Add(Me.Label40)
         Me.TabPage3.Controls.Add(Me.Label41)
         Me.TabPage3.Controls.Add(Me.Label42)
@@ -1487,13 +1489,24 @@ Partial Class Form1
         Me.TabPage3.Text = "Формирование"
         Me.TabPage3.UseVisualStyleBackColor = True
         '
+        'LinkLabel2
+        '
+        Me.LinkLabel2.AutoSize = True
+        Me.LinkLabel2.Font = New System.Drawing.Font("Calibri Light", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.LinkLabel2.Location = New System.Drawing.Point(960, 397)
+        Me.LinkLabel2.Name = "LinkLabel2"
+        Me.LinkLabel2.Size = New System.Drawing.Size(277, 23)
+        Me.LinkLabel2.TabIndex = 74
+        Me.LinkLabel2.TabStop = True
+        Me.LinkLabel2.Text = "Посмотреть проект на github.com"
+        '
         'Button20
         '
         Me.Button20.BackColor = System.Drawing.Color.LightGray
-        Me.Button20.Location = New System.Drawing.Point(563, 411)
+        Me.Button20.Location = New System.Drawing.Point(892, 34)
         Me.Button20.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button20.Name = "Button20"
-        Me.Button20.Size = New System.Drawing.Size(380, 31)
+        Me.Button20.Size = New System.Drawing.Size(380, 36)
         Me.Button20.TabIndex = 73
         Me.Button20.Text = "Проверить на соответствие отчета схеме XSD"
         Me.Button20.UseVisualStyleBackColor = False
@@ -1513,7 +1526,7 @@ Partial Class Form1
         Me.GroupBox11.Controls.Add(Me.Button19)
         Me.GroupBox11.Controls.Add(Me.Button17)
         Me.GroupBox11.Controls.Add(Me.ListView1)
-        Me.GroupBox11.Location = New System.Drawing.Point(21, 308)
+        Me.GroupBox11.Location = New System.Drawing.Point(21, 371)
         Me.GroupBox11.Name = "GroupBox11"
         Me.GroupBox11.Size = New System.Drawing.Size(325, 361)
         Me.GroupBox11.TabIndex = 70
@@ -1558,20 +1571,6 @@ Partial Class Form1
         Me.ImageList1.Images.SetKeyName(0, "fsng.png")
         Me.ImageList1.Images.SetKeyName(1, "FStn.png")
         Me.ImageList1.Images.SetKeyName(2, "fAdd.png")
-        '
-        'CheckBox3
-        '
-        Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.Checked = Global.forestUsageReport_VB.My.MySettings.Default.Совместимость
-        Me.CheckBox3.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.forestUsageReport_VB.My.MySettings.Default, "Совместимость", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.CheckBox3.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.CheckBox3.ForeColor = System.Drawing.Color.Navy
-        Me.CheckBox3.Location = New System.Drawing.Point(563, 161)
-        Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.Size = New System.Drawing.Size(350, 25)
-        Me.CheckBox3.TabIndex = 69
-        Me.CheckBox3.Text = "Режим совместимости с платформой 1С "
-        Me.CheckBox3.UseVisualStyleBackColor = True
         '
         'Label40
         '
@@ -1634,7 +1633,7 @@ Partial Class Form1
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(726, 34)
+        Me.Button1.Location = New System.Drawing.Point(721, 34)
         Me.Button1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(160, 36)
@@ -1652,7 +1651,7 @@ Partial Class Form1
         Me.GroupBox7.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.GroupBox7.Size = New System.Drawing.Size(513, 265)
+        Me.GroupBox7.Size = New System.Drawing.Size(513, 302)
         Me.GroupBox7.TabIndex = 59
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Подписан"
@@ -1660,6 +1659,8 @@ Partial Class Form1
         'GroupBox6
         '
         Me.GroupBox6.AccessibleName = "ct:employee"
+        Me.GroupBox6.Controls.Add(Me.Label44)
+        Me.GroupBox6.Controls.Add(Me.TextBox31)
         Me.GroupBox6.Controls.Add(Me.Label28)
         Me.GroupBox6.Controls.Add(Me.Label29)
         Me.GroupBox6.Controls.Add(Me.Label30)
@@ -1675,10 +1676,33 @@ Partial Class Form1
         Me.GroupBox6.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.GroupBox6.Size = New System.Drawing.Size(475, 180)
+        Me.GroupBox6.Size = New System.Drawing.Size(475, 218)
         Me.GroupBox6.TabIndex = 14
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Информация "
+        '
+        'Label44
+        '
+        Me.Label44.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label44.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Label44.Location = New System.Drawing.Point(16, 166)
+        Me.Label44.Name = "Label44"
+        Me.Label44.Size = New System.Drawing.Size(202, 23)
+        Me.Label44.TabIndex = 16
+        Me.Label44.Text = "Номер контактного телефона"
+        '
+        'TextBox31
+        '
+        Me.TextBox31.AccessibleName = "ct:phone"
+        Me.TextBox31.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.TextBox31.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.TextBox31.Location = New System.Drawing.Point(224, 167)
+        Me.TextBox31.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.TextBox31.MaxLength = 30
+        Me.TextBox31.Name = "TextBox31"
+        Me.TextBox31.Size = New System.Drawing.Size(231, 22)
+        Me.TextBox31.TabIndex = 15
+        Me.TextBox31.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label28
         '
@@ -1843,7 +1867,6 @@ Partial Class Form1
         '
         Me.CheckBox2.AutoSize = True
         Me.CheckBox2.Checked = Global.forestUsageReport_VB.My.MySettings.Default.PrintFile
-        Me.CheckBox2.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CheckBox2.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.forestUsageReport_VB.My.MySettings.Default, "PrintFile", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.CheckBox2.Location = New System.Drawing.Point(563, 103)
         Me.CheckBox2.Name = "CheckBox2"
@@ -2063,7 +2086,6 @@ Partial Class Form1
     Friend WithEvents Label42 As Label
     Friend WithEvents Label43 As Label
     Friend WithEvents CheckBox2 As CheckBox
-    Friend WithEvents CheckBox3 As CheckBox
     Friend WithEvents GroupBox11 As GroupBox
     Friend WithEvents Button19 As Button
     Friend WithEvents Button17 As Button
@@ -2076,4 +2098,7 @@ Partial Class Form1
     Friend WithEvents OpenFileXmlDialog As OpenFileDialog
     Friend WithEvents Label38 As Label
     Friend WithEvents Label39 As Label
+    Friend WithEvents Label44 As Label
+    Friend WithEvents TextBox31 As TextBox
+    Friend WithEvents LinkLabel2 As LinkLabel
 End Class

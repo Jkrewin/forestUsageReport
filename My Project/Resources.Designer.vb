@@ -83,6 +83,16 @@ Namespace My.Resources
         '''<summary>
         '''  Поиск локализованного ресурса типа System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property fsearch() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("fsearch", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property product_csp() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("product_csp", resourceCulture)

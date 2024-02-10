@@ -3,15 +3,14 @@
 <XmlRoot([Namespace]:=VERXSD, IsNullable:=True)>
 Public Class forestUsageReport
 
+
+
     ''' <summary>
     ''' Указывает то что нужно (True) или нет фильтровать пробелы в reference так как в Базе данных НСИ есть пробелы в ID 
     ''' Поэтому некоторые программы удаляют пробелы другие нет 
     ''' </summary>
-    <XmlIgnore> Public Shared ReadOnly Property TRIM_REFERENCE As Boolean
-        Get
-            Return Form1.CheckBox3.Checked
-        End Get
-    End Property
+    <XmlIgnore> Public Shared ReadOnly Property TRIM_REFERENCE As Boolean = False
+
 
     Public serviceInfo As New serviceInfoClass
     Public header As New headerClass
@@ -49,12 +48,13 @@ Public Class forestUsageReport
         Public Function ToDeliverCl() As DeliverCl
             Return New DeliverCl With {.Id = id, .Description = description, .Name = name}
         End Function
+
     End Class
 
     <XmlTypeAttribute([Namespace]:=VERCTYPE)>
     Public Class serviceInfoClass
         Public provider As String = "Document ForestUsageReport" '
-        Public version As String = "3.2"
+        Public version As String = VERXSD.Split("/").Last
         Public name As String = "forestUsageReport"
         Public guid As String = System.Guid.NewGuid.ToString() ' "51a51362-192a-45c6-8947-33e97f420dbf"
     End Class
@@ -110,6 +110,11 @@ Public Class forestUsageReport
             Public Property physicalPerson As physicalPersonClass
             Public Property individualEntrepreneur As individualEntrepreneurClass
 
+            ''' <summary>
+            ''' Версия 4.1 отменяет этот тег 
+            ''' </summary>
+            ''' <returns></returns>
+            <XmlIgnore>
             Public Property phone As String
                 Get
                     Return Form1.PhoneTv
@@ -120,6 +125,7 @@ Public Class forestUsageReport
                     Form1.TextBox30.Text = value
                 End Set
             End Property
+
             <XmlTypeAttribute([Namespace]:=VERCTYPE)>
             Public Class individualEntrepreneurClass
 
@@ -319,7 +325,7 @@ Public Class forestUsageReport
 
             Public Property begin As String
                 Get
-                    Return Form1.DateTimePicker1.Value.Year & "-" & Число00(Form1.DateTimePicker1.Value.Month) & "-" & Число00(Form1.DateTimePicker1.Value.Day)
+                    Return SetDateTimePicker(Form1.DateTimePicker1)
                 End Get
                 Set(value As String)
                     Form1.DateTimePicker1.Value = value
@@ -328,7 +334,7 @@ Public Class forestUsageReport
 
             Public Property [end] As String
                 Get
-                    Return Form1.DateTimePicker2.Value.Year & "-" & Число00(Form1.DateTimePicker2.Value.Month) & "-" & Число00(Form1.DateTimePicker2.Value.Day)
+                    Return SetDateTimePicker(Form1.DateTimePicker2)
                 End Get
                 Set(value As String)
                     Form1.DateTimePicker2.Value = value
@@ -359,7 +365,7 @@ Public Class forestUsageReport
 
             Public Property [date] As String
                 Get
-                    Return Form1.DateTimePicker3.Value.Year & "-" & Число00(Form1.DateTimePicker3.Value.Month) & "-" & Число00(Form1.DateTimePicker3.Value.Day)
+                    Return SetDateTimePicker(Form1.DateTimePicker3)
                 End Get
                 Set(value As String)
                     Form1.DateTimePicker3.Value = value
@@ -402,7 +408,7 @@ Public Class forestUsageReport
             Public employee As New employeeClass
             Public Property [date] As String
                 Get
-                    Return Form1.DateTimePicker4.Value.Year & "-" & Число00(Form1.DateTimePicker4.Value.Month) & "-" & Число00(Form1.DateTimePicker4.Value.Day)
+                    Return SetDateTimePicker(Form1.DateTimePicker4)
                 End Get
                 Set(value As String)
                     Form1.DateTimePicker4.Value = value
@@ -466,8 +472,14 @@ Public Class forestUsageReport
                 ''' Телефон (необязательное поле)
                 ''' </summary>
                 ''' <returns></returns>
-
-                Public Property phone As String 'new
+                Public Property phone As String
+                    Get
+                        Return Form1.TextBox31.Text
+                    End Get
+                    Set(value As String)
+                        Form1.TextBox31.Text = value
+                    End Set
+                End Property
             End Class
         End Class
 
@@ -485,8 +497,7 @@ Public Class forestUsageReport
 
     Public Interface IRow
         Function ToRow() As String()
-        Function toXml() As String
-        Function toHtml() As String
+        Function toHtml(html As String) As String
     End Interface
 
     <XmlTypeAttribute([Namespace]:=VERXSD)>
@@ -498,6 +509,7 @@ Public Class forestUsageReport
         Public Property farm As String
         Public Property formCutting As String
         Public Property typeCutting As New reference
+        Public Property tree As New reference
         Public Property wood As New reference
         Public Property sortiment As New reference
         Public Property value As Decimal
@@ -517,6 +529,7 @@ Public Class forestUsageReport
             h.Add(farm)
             h.Add(formCutting)
             h.Add(typeCutting.name)
+            h.Add(tree.description)
             h.Add(wood.description)
             h.Add(sortiment.name)
             h.Add(value)
@@ -525,121 +538,31 @@ Public Class forestUsageReport
             Return h.ToArray
         End Function
 
-        Public Function toXml() As String Implements IRow.toXml
-            Dim deep As String = "		<row>" & vbCr &
- "			<location>" & vbCr &
-          "				<ct:forestry" & location.forestry.ToString & vbCr &
-          "				<ct:subforestry" & location.subforestry.ToString & vbCr &
-          "				<ct:tract" & location.tract.ToString & vbCr &
-         $"				<ct:quarter>{location.quarter}</ct:quarter>" & vbCr &
-         $"				<ct:taxationUnit>{location.taxationUnit}</ct:taxationUnit>" & vbCr &
-         $"				<ct:cuttingArea>{location.cuttingArea}</ct:cuttingArea>" & vbCr &
- "			</location>" & vbCr &
-$"			<areaSquare>{ПреобразоватьСтроку(areaSquare)}</areaSquare>" & vbCr &
-$"			<areaCutting>{ПреобразоватьСтроку(areaCutting)}</areaCutting>" & vbCr &
-$"			<farm>{farm}</farm>" & vbCr &
-$"			<formCutting>{formCutting}</formCutting>" & vbCr &
- "			<typeCutting" & typeCutting.ToString & vbCr &
- "			<wood" & wood.ToString & vbCr &
- "			<sortiment" & sortiment.ToString & vbCr &
-$"			<value>{ПреобразоватьСтроку(value)}</value>" & vbCr &
-$"			<note>{note}</note>" & vbCr &
-"		</row>"
-            Return deep
-        End Function
 
-        Public Function toHtml() As String Implements IRow.toHtml
-            Dim deep As String = $"<tr>
-  <td width=132 colspan=2 valign=top style='width:99.25pt;border:solid windowtext 1.0pt;
-  border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{location.forestry.name}</p>
-  </td>
-  <td width=106 colspan=4 valign=top style='width:79.15pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{location.subforestry.name}</p>
-  </td>
-  <td width=127 colspan=4 valign=top style='width:95.05pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{location.tract.name}</p>
-  </td>
-  <td width=70 colspan=3 valign=top style='width:52.6pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{location.quarter}</p>
-  </td>
-  <td width=140 colspan=5 valign=top style='width:105.2pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{location.taxationUnit}</p>
-  </td>
-  <td width=79 colspan=4 valign=top style='width:59.05pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{location.cuttingArea}</p>
-  </td>
-  <td width=115 colspan=4 valign=top style='width:86.15pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{ПреобразоватьСтроку(areaSquare)}</p>
-  </td>
-  <td width=80 valign=top style='width:59.75pt;border-top:none;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{areaCutting}</p>
-  </td>
-  <td width=104 colspan=6 valign=top style='width:78.15pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{farm}</p>
-  </td>
-  <td width=86 colspan=5 valign=top style='width:64.4pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{formCutting}</p>
-  </td>
-  <td width=70 colspan=4 valign=top style='width:52.5pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{typeCutting.name}</p>
-  </td>
-  <td width=114 colspan=4 valign=top style='width:85.45pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{wood.description }</p>
-  </td>
-  <td width=109 colspan=5 valign=top style='width:81.6pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{sortiment.name }</p>
-  </td>
-  <td width=103 colspan=4 valign=top style='width:77.1pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{value}</p>
-  </td>
-  <td width=127 colspan=3 valign=top style='width:95.45pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-bottom:0cm;line-height:normal'>{note}</p>
-  </td>
-  <td style='border:none;padding:0cm 0cm 0cm 0cm' width=0><p class='MsoNormal'>&nbsp;</td>
- </tr>"
+        Public Function toHtml(html As String) As String Implements IRow.toHtml
+            Dim deep As String = html
+            Dim dic As New Dictionary(Of String, String) From {
+                {"!D10", formCutting},
+                {"!D11", typeCutting.name},
+                {"!D22", tree.description},
+                {"!D12", wood.description},
+                {"!D13", sortiment.name},
+                {"!D14", value},
+                {"!D15", note},
+                {"!D1", location.forestry.name},
+                {"!D2", location.subforestry.name},
+                {"!D3", location.tract.name},
+                {"!D4", location.quarter},
+                {"!D5", location.taxationUnit},
+                {"!D6", location.cuttingArea},
+                {"!D7", ПреобразоватьСтроку(areaSquare)},
+                {"!D8", areaCutting},
+                {"!D9", farm}}
+
+            For Each tv In dic
+                deep = Replace(deep, tv.Key, tv.Value)
+            Next
+
             Return deep
         End Function
 
@@ -669,87 +592,25 @@ $"			<note>{note}</note>" & vbCr &
             h.Add(volume)
             Return h.ToArray
         End Function
-        Public Function toXml() As String Implements IRow.toXml
-            Dim deep As String = "		<row>" & vbCr &
-    $"          <usageType>{usageType}</usageType>" & vbCr &
-     " 			<location>" & vbCr &
-              "				<ct:forestry" & location.forestry.ToString & vbCr &
-              "				<ct:subforestry" & location.subforestry.ToString & vbCr &
-              "				<ct:tract" & location.tract.ToString & vbCr &
-             $"				<ct:quarter>{location.quarter}</ct:quarter>" & vbCr &
-             $"				<ct:taxationUnit>{location.taxationUnit}</ct:taxationUnit>" & vbCr &
-             $"				<ct:cuttingArea>{location.cuttingArea}</ct:cuttingArea>" & vbCr &
-     "			</location>" & vbCr &
-    $"			<area>{ПреобразоватьСтроку(area)}</area>" & vbCr &
-    $"			<resourceType>{resourceType}</resourceType>" & vbCr &
-    $"			<unitType>{unitType}</unitType>" & vbCr &
-    $"			<volume>{volume}</volume>" & vbCr &
-     "		</row>"
-            Return deep
-        End Function
-        Public Function toHtml() As String Implements IRow.toHtml
-            Dim deep As String = $"<tr> 	
- 	<td width=196 colspan=5 valign=top style='width:147.05pt;border:solid windowtext 1.0pt;
-  border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
- 		<p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{usageType.name }</p>
- 	</td>
- 	<td width=120 colspan=4 valign=top style='width:90.25pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
- 		<p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{location.forestry.name}</p>
- 	</td>
- 	<td width=142 colspan=5 valign=top style='width:106.5pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
- 		<p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'><span>{location.subforestry.name}</span></p>
- 	</td>
- 	<td width=128 colspan=6 valign=top style='width:95.75pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
- 		<p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'><span>{location.tract.name}</span></p>
- 	</td>
- 	<td width=97 colspan=3 valign=top style='width:72.7pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
- 		<p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{location.quarter}</p>
- 	</td>
- 	<td width=166 colspan=5 valign=top style='width:124.45pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
- 		<p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{location.taxationUnit}</p>
- 	</td>
- 	<td width=79 valign=top style='width:59.25pt;border-top:none;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
- 		<p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{area}</p>
- 	</td>
- 	<td width=248 colspan=16 valign=top style='width:185.85pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
- 		<p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{resourceType.name}</p>
- 	</td>
- 	<td width=85 colspan=4 valign=top style='width:64.1pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
- 		<p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{unitType.name}</p>
- 	</td>
- 	<td width=300 colspan=9 valign=top style='width:224.95pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
- 		<p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{volume}</p>
- 	</td>
- 	<td style='border:none;padding:0cm 0cm 0cm 0cm' width=0><p class='MsoNormal'>&nbsp;</td>
- </tr>"
+
+        Public Function toHtml(html As String) As String Implements IRow.toHtml
+            Dim deep As String = html
+            Dim dic As New Dictionary(Of String, String) From {
+                {"!G10", volume},
+                {"!G1", usageType.name},
+                {"!G2", location.forestry.name},
+                {"!G3", location.subforestry.name},
+                {"!G4", location.tract.name},
+                {"!G5", location.quarter},
+                {"!G6", location.taxationUnit},
+                {"!G7", area},
+                {"!G8", resourceType.name},
+                {"!G9", unitType.name}
+                }
+            For Each tv In dic
+                deep = Replace(deep, tv.Key, tv.Value)
+            Next
+
             Return deep
         End Function
     End Class
@@ -764,6 +625,7 @@ $"			<note>{note}</note>" & vbCr &
         Public Property farm As String
         Public Property formCutting As String
         Public Property typeCutting As New reference
+        Public Property tree As New reference
         Public Property wood As New reference
         Public Property sortiment As New reference
         Public Property value As Decimal
@@ -773,147 +635,51 @@ $"			<note>{note}</note>" & vbCr &
             Dim h As New List(Of String)
 
             h.Add(measure.name)
-                    h.Add([Object].name)
-                    h.Add(location.forestry.name)
-                    h.Add(location.subforestry.name)
-                    h.Add(location.tract.name)
-                    h.Add(location.quarter)
-                    h.Add(location.taxationUnit)
-                    h.Add(location.cuttingArea)
-                    h.Add(area)
-                    h.Add(formCutting)
-                    h.Add(typeCutting.name)
-                    h.Add(wood.name)
-                    h.Add(sortiment.name)
-                    h.Add(value)
-                    h.Add(commercialValue)
+            h.Add([Object].name)
+            h.Add(location.forestry.name)
+            h.Add(location.subforestry.name)
+            h.Add(location.tract.name)
+            h.Add(location.quarter)
+            h.Add(location.taxationUnit)
+            h.Add(location.cuttingArea)
+            h.Add(area)
+            h.Add(formCutting)
+            h.Add(typeCutting.name)
+            h.Add(wood.name)
+            h.Add(sortiment.name)
+            h.Add(value)
+            h.Add(commercialValue)
 
             Return h.ToArray
         End Function
 
-        Public Function toXml() As String Implements IRow.toXml
-            Dim deep As String = "		<row>" & vbCr &
-   $"			<ct:measure>{measure.ToString}</ct:measure>" & vbCr &
-   $"			<ct:object>{[object].ToString}</ct:object>" & vbCr &
-    "			<location>" & vbCr &
-             "				<ct:forestry" & location.forestry.ToString & vbCr &
-             "				<ct:subforestry" & location.subforestry.ToString & vbCr &
-             "				<ct:tract" & location.tract.ToString & vbCr &
-            $"				<ct:quarter>{location.quarter}</ct:quarter>" & vbCr &
-            $"				<ct:taxationUnit>{location.taxationUnit}</ct:taxationUnit>" & vbCr &
-            $"				<ct:cuttingArea>{location.cuttingArea}</ct:cuttingArea>" & vbCr &
-    "			</location>" & vbCr &
-   $"			<area>{ПреобразоватьСтроку(area)}</area>" & vbCr &
-   $"			<farm>{farm}</farm>" & vbCr &
-   $"			<formCutting>{formCutting}</formCutting>" & vbCr &
-   $"			<ct:typeCutting>{typeCutting.ToString}</ct:typeCutting>" & vbCr &
-    " 			<ct:wood" & wood.ToString & vbCr &
-    "			<ct:sortiment" & sortiment.ToString & vbCr &
-   $"			<value>{ПреобразоватьСтроку(value)}</value>" & vbCr &
-   $"			<commercialValue>{ПреобразоватьСтроку(commercialValue)}</commercialValue>" & vbCr &
-    "		</row>"
-            Return deep
-        End Function
+        Public Function toHtml(html As String) As String Implements IRow.toHtml
 
-        Public Function toHtml() As String Implements IRow.toHtml
-            Dim deep As String = $"<tr>
-  <td style='border:none;padding:0cm 0cm 0cm 0cm' width=0><p class='MsoNormal'>&nbsp;</td>
-  <td width=178 colspan=3 valign=top style='width:133.25pt;border:solid windowtext 1.0pt;
-  border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{measure.name}</p>
-  </td>
-  <td width=128 colspan=4 valign=top style='width:95.8pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{[object].name}</p>
-  </td>
-  <td width=113 colspan=4 valign=top style='width:84.8pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{location.forestry.name}</p>
-  </td>
-  <td width=121 colspan=5 valign=top style='width:91.1pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{location.subforestry.name}</p>
-  </td>
-  <td width=109 colspan=4 valign=top style='width:81.4pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{location.tract.name}</p>
-  </td>
-  <td width=101 colspan=3 valign=top style='width:75.8pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{location.quarter}</p>
-  </td>
-  <td width=98 colspan=3 valign=top style='width:73.55pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{location.taxationUnit}</p>
-  </td>
-  <td width=87 colspan=4 valign=top style='width:64.9pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{location.cuttingArea}</p>
-  </td>
-  <td width=72 colspan=5 valign=top style='width:53.95pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{area}></p>
-  </td>
-  <td width=79 colspan=5 valign=top style='width:59.1pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{farm}></p>
-  </td>
-  <td width=81 colspan=3 valign=top style='width:60.4pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{formCutting}</p>
-  </td>
-  <td width=71 colspan=3 valign=top style='width:53.35pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{typeCutting.name}</p>
-  </td>
-  <td width=84 colspan=3 valign=top style='width:62.75pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{wood.name}</p>
-  </td>
-  <td width=108 colspan=4 valign=top style='width:80.75pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{sortiment.name}</p>
-  </td>
-  <td width=65 colspan=3 valign=top style='width:48.65pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'>{value}</p>
-  </td>
-  <td width=68 colspan=2 valign=top style='width:51.25pt;border-top:none;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
-  line-height:normal'><span >{commercialValue}</span></p>
-  </td>
- </tr>"
+            Dim deep As String = html
+            Dim dic As New Dictionary(Of String, String) From {
+                {"!H10", farm},
+                {"!H11", formCutting},
+                {"!H22", tree.description},
+                {"!H13", typeCutting.name},
+                {"!H14", wood.name},
+                {"!H15", sortiment.name},
+                {"!H16", value},
+                {"!H17", commercialValue},
+                {"!H1", measure.name},
+                {"!H2", [object].name},
+                {"!H3", location.forestry.name},
+                {"!H4", location.subforestry.name},
+                {"!H5", location.tract.name},
+                {"!H6", location.quarter},
+                {"!H7", location.taxationUnit},
+                {"!H8", location.cuttingArea},
+                {"!H9", area}
+                }
+
+            For Each tv In dic
+                deep = Replace(deep, tv.Key, tv.Value)
+            Next
+
             Return deep
         End Function
     End Class
